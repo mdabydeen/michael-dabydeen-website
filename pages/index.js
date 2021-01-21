@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Michael Dabydeen - Engineering x Product Leader</title>
         <link rel="icon" href="/favicon.ico" />
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
       </Head>
@@ -35,7 +35,7 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
+          <a href="/blog" className={styles.card}>
             <h3>Blog &rarr;</h3>
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
