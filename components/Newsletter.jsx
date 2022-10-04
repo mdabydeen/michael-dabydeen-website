@@ -1,14 +1,43 @@
 import React, { useState } from 'react'
 import { MailIcon } from './Icons/MailIcon'
 import { Button } from './Button'
+import { useRouter } from 'next/router'
 
 export function Newsletter() {
+    const router = useRouter()
     const [email, setEmail] = useState("")
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      const res = await fetch("/api/email/subscribe", {
+        body: JSON.stringify({
+          email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+
+      const { error, data } = await res.json();
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      if (data) {
+        console.log(data)
+        router.push('/thank-you')
+      }
+    }
 
     return (
       <form
-        action="/api/email/subscribe"
-        method='POST'
+        // action="/api/email/subscribe"
+        // method='POST'
+        onSubmit={handleSubmit}
         className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
       >
         <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
@@ -23,7 +52,7 @@ export function Newsletter() {
             type="email"
             placeholder="Email address"
             aria-label="Email address"
-            autocomplete="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value)
