@@ -1,0 +1,12 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Mike Dabydeen",
+    "home_page_url": "https://localhost:3000",
+    "feed_url": "https://localhost:3000/rss/feed.json",
+    "description": "Your blog description",
+    "icon": "https://localhost:3000/favicon.ico",
+    "author": {
+        "name": "Mike Dabydeen"
+    },
+    "items": []
+}

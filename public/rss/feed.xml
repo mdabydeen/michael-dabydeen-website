@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Mike Dabydeen</title>
+        <link>https://localhost:3000</link>
+        <description>Your blog description</description>
+        <lastBuildDate>Tue, 04 Oct 2022 03:02:54 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <image>
+            <title>Mike Dabydeen</title>
+            <url>https://localhost:3000/favicon.ico</url>
+            <link>https://localhost:3000</link>
+        </image>
+        <copyright>All rights reserved 2022</copyright>
+    </channel>
+</rss>
