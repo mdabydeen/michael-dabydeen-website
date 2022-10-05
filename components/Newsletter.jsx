@@ -1,11 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MailIcon } from './Icons/MailIcon'
 import { Button } from './Button'
+import { useRouter } from 'next/router'
 
 export function Newsletter() {
+    const router = useRouter()
+    const [email, setEmail] = useState("")
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      const res = await fetch("/api/email/subscribe", {
+        body: JSON.stringify({
+          email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+
+      const { error, data } = await res.json();
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      if (data) {
+        console.log(data)
+        router.push('/thank-you')
+      }
+    }
+
     return (
       <form
-        action="/thank-you"
+        // action="/api/email/subscribe"
+        // method='POST'
+        onSubmit={handleSubmit}
         className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
       >
         <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
@@ -20,6 +52,11 @@ export function Newsletter() {
             type="email"
             placeholder="Email address"
             aria-label="Email address"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
             required
             className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10 sm:text-sm"
           />
