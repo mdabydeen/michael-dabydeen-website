@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatDate } from '../lib/formatDate'
 import { Card } from './Card'
 
 export function Article({ article }) {

@@ -27,7 +27,6 @@ import { getAllArticles } from '../lib/getAllArticles'
 import { formatDate } from '../lib/formatDate'
 
 const Home = ({ articles }) => {
-  console.log(articles)
 
   return (
     <>
