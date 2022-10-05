@@ -4,18 +4,20 @@ import { Button } from './Button'
 import { BriefcaseIcon } from './Icons/BriefcaseIcon'
 import Image from 'next/image'
 
-import logoAirbnb from '../images/logos/airbnb.svg'
-import logoFacebook from '../images/logos/facebook.svg'
-import logoPlanetaria from '../images/logos/planetaria.svg'
-import logoStarbucks from '../images/logos/starbucks.svg'
+import logoUREEQA from '../images/logos/ureeqa.png'
+import logoTulip from '../images/logos/tulip.png'
+import logoSurge from '../images/logos/surge.png'
+import logoSkrumble from '../images/logos/skrumble.svg'
+import Link from 'next/link'
 
 function Resume() {
     let resume = [
       {
         company: 'UREEQA',
         title: 'CTO',
-        logo: logoPlanetaria,
+        logo: logoUREEQA,
         start: '2021',
+        url: 'https://ureeqa.com',
         end: {
           label: 'Present',
           dateTime: new Date().getFullYear(),
@@ -24,21 +26,24 @@ function Resume() {
       {
         company: 'Surge Learning',
         title: 'Director of Programming',
-        logo: logoAirbnb,
+        logo: logoSurge,
+        url: 'https://surgelearning.ca',
         start: '2019',
         end: '2021',
       },
       {
         company: 'Tulip Retail',
         title: 'Snr. Software Engineer (Contract)',
-        logo: logoFacebook,
+        logo: logoTulip,
+        url: 'https://tulip.com',
         start: '2019',
         end: '2019',
       },
       {
         company: 'Skrumble Network',
         title: 'Lead Developer',
-        logo: logoStarbucks,
+        logo: logoSkrumble,
+        url: 'https://skumble.network',
         start: '2016',
         end: '2019',
       },
@@ -59,7 +64,9 @@ function Resume() {
               <dl className="flex flex-auto flex-wrap gap-x-2">
                 <dt className="sr-only">Company</dt>
                 <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  <Link href={role.url} target="_blank">
                   {role.company}
+                  </Link>
                 </dd>
                 <dt className="sr-only">Role</dt>
                 <dd className="text-xs text-zinc-500 dark:text-zinc-400">
