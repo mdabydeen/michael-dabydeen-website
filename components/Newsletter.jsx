@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MailIcon } from './icons/MailIcon'
+import { MailIcon } from './Icons/MailIcon'
 import { Button } from './Button'
 import { useRouter } from 'next/router'
 

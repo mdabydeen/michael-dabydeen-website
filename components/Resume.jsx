@@ -1,7 +1,7 @@
 import React from 'react'
-import { ArrowDownIcon } from './icons/ArrowDownIcon'
+import { ArrowDownIcon } from './Icons/ArrowDownIcon'
 import { Button } from './Button'
-import { BriefcaseIcon } from './icons/BriefcaseIcon'
+import { BriefcaseIcon } from './Icons/BriefcaseIcon'
 import Image from 'next/image'
 
 import logoUREEQA from '../images/logos/ureeqa.png'
