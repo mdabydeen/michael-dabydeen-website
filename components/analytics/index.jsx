@@ -1,9 +1,9 @@
 import React from 'react'
 import { GoogleAnalytics } from './GoogleAnalytics'
 
-const isProduction = process.node.NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'production'
 
-export function index() {
+export function Analytics() {
   if (isProduction) {
     return (
       <GoogleAnalytics />
