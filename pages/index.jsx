@@ -37,10 +37,10 @@ const Home = ({ articles }) => {
             source enthusiast
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I&apos;m Mike, a Software engineering leader and entrepreneur based in
+            I&apos;m Mike, a technologist, engineering leader and entrepreneur based in
             Toronto, Canada. I&apos;m CTO of UREEQA, where we develop technologies
             that empower creators to manage, monetize &amp; protect on their
-            work
+            work using blockchain.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
