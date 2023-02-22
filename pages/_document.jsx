@@ -1,4 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document'
+import Script from 'next/script'
 
 const modeScript = `
   let darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -51,6 +52,7 @@ export default function Document() {
           href={`${process.env.NEXT_PUBLIC_SITE_URL}/rss/feed.json`}
         />
       </Head>
+      <Script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></Script>
       <body className="flex h-full flex-col bg-zinc-50 dark:bg-black">
         <Main />
         <NextScript />
