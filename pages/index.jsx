@@ -15,6 +15,7 @@ import { Photos } from '../components/Photos'
 
 import { generateRssFeed } from '../lib/generateRssFeed'
 import { getAllArticles } from '../lib/getAllArticles'
+import Script from "next/script";
 
 const Home = ({ articles }) => {
 
@@ -30,6 +31,7 @@ const Home = ({ articles }) => {
           content="I&apos;m Mike, a Software engineering leader and entrepreneur based in Toronto, Canada. I&apos;m CTO of UREEQA, where we develop technologies that empower creators to manage, monetize &amp; protect on their work."
         />
       </Head>
+      <Script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></Script>
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
