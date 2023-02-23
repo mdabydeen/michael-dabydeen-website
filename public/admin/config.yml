@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main # Branch to update (optional; defaults to master)
+  branch: main 
 
 media_folder: public/assets
 public_folder: assets
@@ -15,26 +15,30 @@ collections:
     files:
       - label: 'Home'
         name: 'home'
-        file: 'content/home.md'
+        file: 'pages/content/home.md'
         fields:
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Publish Date', name: 'date', widget: 'datetime' }
           - { label: 'Body', name: 'body', widget: 'markdown' }
-          - label: 'Cats'
-            name: 'cats'
-            widget: list
-            fields:
-              - { label: 'Name', name: 'name', widget: 'string' }
-              - { label: 'Description', name: 'description', widget: 'text' }
+          # - label: 'Items'
+          #   name: 'items'
+          #   widget: list
+          #   fields:
+          #     - { label: 'Name', name: 'name', widget: 'string' }
+          #     - { label: 'Description', name: 'description', widget: 'text' }
   - name: 'blog'
     label: 'Blog'
     folder: 'pages/articles/'
     create: true
-    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    slug: '{{slug}}'
     fields:
-      - { label: 'Layout', name: 'layout', widget: 'hidden', default: 'blog' }
+      - { label: 'Layout', name: 'layout', widget: 'hidden', default: 'articleLayout' }
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - { label: 'Description', name: 'description', widget: 'text'}
+      - { label: 'Publish Date', name: 'date', widget: 'date' }
       - { label: 'Featured Image', name: 'thumbnail', widget: 'image' }
-      - { label: 'Rating (scale of 1-5)', name: 'rating', widget: 'number' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: 'Tags', name: 'tags', widget: 'list' }
+      - { label: 'Author', name: 'author', widget: 'string' }
+      - { label: 'Author Twitter Handle', name: 'authorTwitter', widget: 'string' }
+      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
