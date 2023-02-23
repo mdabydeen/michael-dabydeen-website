@@ -9,6 +9,9 @@ publish_mode: editorial_workflow
 
 local_backend: true
 
+extension: mdx
+format: frontmatter
+
 collections:
   - name: 'pages'
     label: 'Pages'
