@@ -31,10 +31,7 @@ collections:
             name: 'site_keywords'
             widget: 'list'
             summary: '{{fields.keyword.keyword}}'
-            field:
-              label: Keyword
-              name: keyword
-              widget: 'string'
+            field: { label: 'Keyword', name: 'keyword', widget: 'string' }
           - label: 'Twitter account'
             name: 'twitter_account'
             widget: 'string'
@@ -58,14 +55,18 @@ collections:
             label_singular: 'Tag'
             widget: list
             field:
-              - label: 'Slug'
-                name: 'slug'
-                widget: 'string'
-                hint: 'The part of a URL identifies the tag'
-              - label: 'Display Name'
-                name: 'name'
-                widget: 'string'
-                hint: 'Tag name for displaying on the site'
+              - {
+                  label: 'Slug',
+                  name: 'slug',
+                  widget: 'string',
+                  hint: 'The part of a URL identifies the tag',
+                }
+              - {
+                  label: 'Display Name',
+                  name: 'name',
+                  widget: 'string',
+                  hint: 'Tag name for displaying on the site',
+                }
 
   - name: 'posts'
     label: 'Posts'
