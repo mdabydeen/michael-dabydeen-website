@@ -24,7 +24,7 @@ collections:
             name: 'name'
             widget: 'string'
             hint: 'Tag name for displaying on the site'
-            
+
   - name: 'posts'
     label: 'Posts'
     label_singular: 'Post'
@@ -48,21 +48,21 @@ collections:
         }
       - { label: 'Featured Image', name: 'thumbnail', widget: 'image' }
       - {
-        label: "Tags",
-        label_singular: "Tag",
-        name: "tags",
-        widget: list,
-        summary: "{{fields.tag}}",
-        field:
-          label: "Tag",
-          name: "tag",
-          widget: "relation",
-          collection: "meta",
-          file: "tags",
-          searchFields:
-            - "tags.*.name",
-          displayFields:
-            - "tags.*.name",
-          valueField: "tags.*.slug"
-        }      
+          label: 'Tags',
+          label_singular: 'Tag',
+          name: 'tags',
+          widget: list,
+          summary: '{{fields.tag}}',
+          field:
+            {
+              label: 'Tag',
+              name: 'tag',
+              widget: 'relation',
+              collection: 'meta',
+              file: 'tags',
+              searchFields: { 'tags.*.name' },
+              displayFields: { 'tags.*.name' },
+              valueField: 'tags.*.slug',
+            },
+        }
       - { label: 'Body', name: 'body', widget: 'markdown' }
