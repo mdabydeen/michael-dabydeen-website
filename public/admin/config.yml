@@ -31,7 +31,10 @@ collections:
             name: 'site_keywords'
             widget: 'list'
             summary: '{{fields.keyword.keyword}}'
-            field: { label: 'Keyword', name: 'keyword', widget: 'string' }
+            field:
+              - label: 'Keyword'
+                name: 'keyword'
+                widget: 'string'
           - label: 'Twitter account'
             name: 'twitter_account'
             widget: 'string'
@@ -55,18 +58,15 @@ collections:
             label_singular: 'Tag'
             widget: list
             field:
-              - {
-                  label: 'Slug',
-                  name: 'slug',
-                  widget: 'string',
-                  hint: 'The part of a URL identifies the tag',
-                }
-              - {
-                  label: 'Display Name',
-                  name: 'name',
-                  widget: 'string',
-                  hint: 'Tag name for displaying on the site',
-                }
+              - label: 'Slug'
+                name: 'slug'
+                widget: 'string'
+                hint: 'The part of a URL identifies the tag'
+
+              - label: 'Display Name'
+                name: 'name'
+                widget: 'string'
+                hint: 'Tag name for displaying on the site'
 
   - name: 'posts'
     label: 'Posts'
@@ -79,33 +79,37 @@ collections:
     identifier_field: slug
     summary: '{{title}}'
     fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Description', name: 'description', widget: 'text' }
-      - {
-          label: 'Publish Date',
-          name: 'date',
-          widget: 'datetime',
-          format: 'YYYY-MM-DD',
-          dateFormat: 'YYYY-MM-DD',
-          timeFormat: false,
-        }
-      - { label: 'Featured Image', name: 'thumbnail', widget: 'image' }
-      - {
-          label: 'Tags',
-          label_singular: 'Tag',
-          name: 'tags',
-          widget: list,
-          summary: '{{fields.tag}}',
-          field:
-            {
-              label: 'Tag',
-              name: 'tag',
-              widget: 'relation',
-              collection: 'meta',
-              file: 'tags',
-              searchFields: - 'tags.*.name',
-              displayFields: - 'tags.*.name',
-              valueField: 'tags.*.slug',
-            },
-        }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - label: 'Title'
+        name: 'title'
+        widget: 'string'
+      - label: 'Description'
+        name: 'description'
+        widget: 'text'
+      - label: 'Publish Date'
+        name: 'date'
+        widget: 'datetime'
+        format: 'YYYY-MM-DD'
+        dateFormat: 'YYYY-MM-DD'
+        timeFormat: false
+      - label: 'Featured Image'
+        name: 'thumbnail'
+        widget: 'image'
+      - label: 'Tags'
+        label_singular: 'Tag'
+        name: 'tags'
+        widget: list
+        summary: '{{fields.tag}}'
+        field:
+          - label: 'Tag'
+            name: 'tag'
+            widget: 'relation'
+            collection: 'meta'
+            file: 'tags'
+            searchFields:
+              - 'tags.*.name'
+            displayFields:
+              - 'tags.*.name'
+            valueField: 'tags.*.slug'
+      - label: 'Body'
+        name: 'body'
+        widget: 'markdown'
