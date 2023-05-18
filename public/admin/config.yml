@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main 
+  branch: main
 
 media_folder: public/assets
 public_folder: assets
@@ -10,7 +10,6 @@ publish_mode: editorial_workflow
 local_backend: true
 
 extension: mdx
-format: frontmatter
 
 collections:
   - name: 'pages'
@@ -35,12 +34,21 @@ collections:
     create: true
     slug: '{{slug}}'
     fields:
-      - { label: 'Layout', name: 'layout', widget: 'hidden', default: 'articleLayout' }
+      - {
+          label: 'Layout',
+          name: 'layout',
+          widget: 'hidden',
+          default: 'articleLayout',
+        }
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Description', name: 'description', widget: 'text'}
+      - { label: 'Description', name: 'description', widget: 'text' }
       - { label: 'Publish Date', name: 'date', widget: 'date' }
       - { label: 'Featured Image', name: 'thumbnail', widget: 'image' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: 'Tags', name: 'tags', widget: 'list' }
       - { label: 'Author', name: 'author', widget: 'string' }
-      - { label: 'Author Twitter Handle', name: 'authorTwitter', widget: 'string' }
+      - {
+          label: 'Author Twitter Handle',
+          name: 'authorTwitter',
+          widget: 'string',
+        }

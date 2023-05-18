@@ -60,7 +60,6 @@ Build UI to connect to the blockchain and display the current block number
 Install & Setup SolidJS
 Getting started with SolidJS is easy. To get started run the following command from your command line terminal
 
-
 npx degit solidjs/templates/js solidjs-web3-demo
 you can replace solidjs-web3-demo with an appropriate name for your project.
 
@@ -69,19 +68,15 @@ Or for TypeScript:
 npx degit solidjs/templates/ts solidjs-web3-demo
 Then, navigate to your application folder
 
-
 cd solidjs-web3-demo/
 Install the node dependencies
-
 
 yarn install
 To run your project
 
-
 yarn run dev
 Install & Setup TailwindCSS for SolidJS
 Install TailwindCSS
-
 
 yarn add -D tailwindcss postcss autoprefixer
 Initialize the Tailwindcss setup.
@@ -98,7 +93,6 @@ module.exports = {
   plugins: [],
 }
 Import the @tailwind directives for each layer into your main CSS file, usually in ./src/index.css
-
 
 @tailwind base;
 @tailwind components;
@@ -134,7 +128,7 @@ const myDApp = () => {
   const web3 = new Web3(new Web3.providers.HttpProvider(provider)
 );
 
-// Connect to your metamask wallet. 
+// Connect to your metamask wallet.
   const handleWallet = async () => {
     if (ethereum) {
       await ethereum.request({ method: "eth_requestAccounts" });
@@ -152,6 +146,7 @@ const myDApp = () => {
     web3.eth.getBlockNumber().then((result) => setBlockNumber(result));
   }, []);
 
+```bash
   return (
     <div class="container mx-auto mt-6">
       <h1 class="text-2xl font-bold">My DApp</h1>
@@ -163,6 +158,7 @@ const myDApp = () => {
     </div>
   );
 };
+```
 
 // Render the DApp component
 export default myDApp;
