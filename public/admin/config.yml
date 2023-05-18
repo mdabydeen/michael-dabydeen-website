@@ -1,16 +1,9 @@
 backend:
   name: git-gateway
-  branch: main 
-
+  branch: main
 media_folder: public/assets
-public_folder: assets
-
+public_folder: /assets
 publish_mode: editorial_workflow
-
-local_backend: true
-
-extension: mdx
-format: frontmatter
 
 collections:
   - name: 'pages'
@@ -29,18 +22,45 @@ collections:
           #   fields:
           #     - { label: 'Name', name: 'name', widget: 'string' }
           #     - { label: 'Description', name: 'description', widget: 'text' }
-  - name: 'blog'
-    label: 'Blog'
+  - name: 'tags'
+    label: 'Tags'
+    file: 'meta/tags.yml'
+    description: 'List of tags'
+    fields:
+      - name: tags
+        label: Tags
+        label_singular: 'Tag'
+        widget: list
+        fields:
+          - label: 'Slug'
+            name: 'slug'
+            widget: 'string'
+            hint: 'The part of a URL identifies the tag'
+          - label: 'Display Name'
+            name: 'name'
+            widget: 'string'
+            hint: 'Tag name for displaying on the site'
+  - name: 'posts'
+    label: 'Posts'
+    label_singular: 'Post'
     folder: 'pages/articles/'
+    extension: mdx
+    format: frontmatter
     create: true
     slug: '{{slug}}'
+    identifier_field: slug
+    summary: '{{title}}'
     fields:
-      - { label: 'Layout', name: 'layout', widget: 'hidden', default: 'articleLayout' }
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Description', name: 'description', widget: 'text'}
-      - { label: 'Publish Date', name: 'date', widget: 'date' }
+      - { label: 'Description', name: 'description', widget: 'text' }
+      - {
+          label: 'Publish Date',
+          name: 'date',
+          widget: 'datetime',
+          format: 'YYYY-MM-DD',
+          dateFormat: 'YYYY-MM-DD',
+          timeFormat: false,
+        }
       - { label: 'Featured Image', name: 'thumbnail', widget: 'image' }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: 'Tags', name: 'tags', widget: 'list' }
-      - { label: 'Author', name: 'author', widget: 'string' }
-      - { label: 'Author Twitter Handle', name: 'authorTwitter', widget: 'string' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
