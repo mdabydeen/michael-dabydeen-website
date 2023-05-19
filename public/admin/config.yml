@@ -1,7 +1,8 @@
 local_backend: true
 
 backend:
-  name: git-gateway
+  #name: git-gateway
+  name: test-repo
   branch: main
 media_folder: public/assets
 public_folder: /assets
@@ -56,18 +57,19 @@ collections:
             label: Tags
             label_singular: 'Tag'
             widget: list
-            - {
-                label: 'Slug',
-                name: 'slug',
-                widget: 'string',
-                hint: 'The part of a URL identifies the tag',
-              }
-            - {
-                label: 'Display Name',
-                name: 'name',
-                widget: 'string',
-                hint: 'Tag name for displaying on the site',
-              }
+            fields:
+              - {
+                  label: 'Slug',
+                  name: 'slug',
+                  widget: 'string',
+                  hint: 'The part of a URL identifies the tag',
+                }
+              - {
+                  label: 'Display Name',
+                  name: 'name',
+                  widget: 'string',
+                  hint: 'Tag name for displaying on the site',
+                }
 
   - name: 'posts'
     label: 'Posts'
@@ -100,16 +102,17 @@ collections:
         name: 'tags'
         widget: list
         summary: '{{fields.tag}}'
-        - {
-            label: 'Tag',
-            name: 'tag',
-            widget: 'relation',
-            collection: 'meta',
-            file: 'tags',
-            searchFields: 'tags.*.name',
-            displayFields: 'tags.*.name',
-            valueField: 'tags.*.slug',
-          }
+        fields:
+          - {
+              label: 'Tag',
+              name: 'tag',
+              widget: 'relation',
+              collection: 'meta',
+              file: 'tags',
+              searchFields: 'tags.*.name',
+              displayFields: 'tags.*.name',
+              valueField: 'tags.*.slug',
+            }
       - label: 'Body'
         name: 'body'
         widget: 'markdown'
