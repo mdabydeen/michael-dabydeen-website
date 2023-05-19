@@ -1,8 +1,7 @@
 local_backend: true
 
 backend:
-  #name: git-gateway
-  name: test-repo
+  name: git-gateway
   branch: main
 media_folder: public/assets
 public_folder: /assets
