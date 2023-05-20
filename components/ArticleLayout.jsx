@@ -22,7 +22,7 @@ export function ArticleLayout({
   children,
   meta,
   isRssFeed = false,
-  previousPathname,
+  previousPathname = false,
 }) {
   let router = useRouter()
 

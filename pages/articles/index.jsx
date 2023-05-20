@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 import { Card } from '../../components/Card'
 import { SimpleLayout } from '../../components/SimpleLayout'
-import { getAllArticles } from '../../lib/getAllArticles'
+import { listPostContent } from '../../lib/getAllPosts'
 import { formatDate } from '../../lib/formatDate'
 
 function Article({ article }) {
@@ -46,7 +46,7 @@ export default function ArticlesIndex({ articles }) {
       </Head>
       <SimpleLayout
         title="Writing on software design, company building, and the computer industry."
-        intro="All of my long-form thoughts on programming, leadership, blockchain, cybersecurity and more, collected in chronological order."
+        intro="All of my long-form thoughts on programming, leadership, blockchains, cybersecurity and more, collected in chronological order."
       >
         <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
           <div className="flex max-w-3xl flex-col space-y-16">
@@ -61,9 +61,11 @@ export default function ArticlesIndex({ articles }) {
 }
 
 export async function getStaticProps() {
+  const postContents =  (await listPostContent(1, 1).map(it => it))
+
   return {
     props: {
-      articles: (await getAllArticles()).map(({ component, ...meta }) => meta),
+      articles: postContents,
     },
   }
 }

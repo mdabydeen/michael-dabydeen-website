@@ -11,6 +11,7 @@ const nextConfig = {
     newNextLinkBehavior: true,
     scrollRestoration: true,
   },
+  poweredByHeader: false
 }
 
 const withMDX = nextMDX({
