@@ -20,6 +20,8 @@ import { listPostContent } from '../lib/getAllPosts'
 
 const Home = ({ articles }) => {
 
+  // console.log('ARTICLES =>', articles)
+
   return (
     <>
       <Head>
@@ -72,8 +74,8 @@ const Home = ({ articles }) => {
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
-            {articles.map((article) => (
-              <Article key={article.slug} article={article} />
+            {articles?.map((article) => (
+              <Article key={article?.slug} article={article} />
             ))}
           </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
@@ -90,12 +92,13 @@ export default Home;
 
 
 export async function getStaticProps() {
-  if (process.env.NODE_ENV === 'production') {
-    await generateRssFeed()
-  }
+  // if (process.env.NODE_ENV === 'production') {
+  //   await generateRssFeed()
+  // }
 
-  const postContents =  (await listPostContent(2, 1).map(it => it))
+  const postContents = listPostContent(1, 4).map(it => it)
 
+  // console.log(postContents)
 
   return {
     props: {
