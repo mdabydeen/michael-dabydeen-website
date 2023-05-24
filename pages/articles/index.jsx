@@ -61,7 +61,7 @@ export default function ArticlesIndex({ articles }) {
 }
 
 export async function getStaticProps() {
-  const postContents =  (await listPostContent(1, 1).map(it => it))
+  const postContents =  (await listPostContent(1, 10).map(it => it))
 
   return {
     props: {

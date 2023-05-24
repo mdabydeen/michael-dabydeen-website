@@ -56,13 +56,15 @@ export function ArticleLayout({
                 </h1>
                   <time
                     dateTime={meta.date}
-                    className="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"
+                    className="order-first flex flex-auto text-base text-zinc-400 dark:text-zinc-500"
                   >
-                    <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
+                    <span className="h-8 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
             
-                    <span className="ml-3 justify-start">{formatDate(meta.date)}</span>
+                    <span className="ml-3 justify-start grow">{formatDate(meta.date)}</span>
+                    
+                    <span className='mr-3 text-zinc-400 dark:text-zinc-500'>{meta.location}</span>
+
                   </time>
-                  {/* <div className=' text-zinc-400 dark:text-zinc-500 items-end'>{meta.location}</div> */}
               </header>
               <Prose className="mt-8">{children}</Prose>
             </article>

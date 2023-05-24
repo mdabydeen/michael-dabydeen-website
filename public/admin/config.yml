@@ -69,7 +69,28 @@ collections:
                   widget: 'string',
                   hint: 'Tag name for displaying on the site',
                 }
-
+      - name: 'locations'
+        label: 'Locations'
+        file: 'meta/locations.yml'
+        description: 'List of locations'
+        fields:
+          - name: locations
+            label: Locations
+            label_singular: 'Location'
+            widget: list
+            fields:
+              - {
+                  label: 'Slug',
+                  name: 'slug',
+                  widget: 'string',
+                  hint: 'The part of a URL identifies the tag',
+                }
+              - {
+                  label: 'Display Name',
+                  name: 'name',
+                  widget: 'string',
+                  hint: 'Tag name for displaying on the site',
+                }
   - name: 'posts'
     label: 'Posts'
     label_singular: 'Post'
@@ -93,25 +114,36 @@ collections:
         format: 'YYYY-MM-DD'
         dateFormat: 'YYYY-MM-DD'
         timeFormat: false
+      - label: 'Locations'
+        name: 'locations'
+        widget: 'list'
+        summary: '{{fields.location}}'
+        fields:
+          - label: 'Place'
+            name: 'place'
+            widget: 'relation'
+            collection: 'meta'
+            file: 'locations'
+            search_fields: ['locations.*.name']
+            display_fields: ['locations.*.name']
+            value_field: 'locations.*.slug'
       - label: 'Featured Image'
         name: 'thumbnail'
         widget: 'image'
       - label: 'Tags'
         label_singular: 'Tag'
         name: 'tags'
-        widget: list
+        widget: 'list'
         summary: '{{fields.tag}}'
         fields:
-          - {
-              label: 'Tag',
-              name: 'tag',
-              widget: 'relation',
-              collection: 'meta',
-              file: 'tags',
-              searchFields: 'tags.*.name',
-              displayFields: 'tags.*.name',
-              valueField: 'tags.*.slug',
-            }
+          - label: 'Tag'
+            name: 'tag'
+            widget: 'relation'
+            collection: 'meta'
+            file: 'tags'
+            search_fields: ['tags.*.name']
+            display_fields: ['tags.*.name']
+            value_field: 'tags.*.slug'
       - label: 'Body'
         name: 'body'
         widget: 'markdown'

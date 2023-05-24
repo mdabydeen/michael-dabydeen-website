@@ -1,0 +1,81 @@
+---
+title: 'How to setup a Ledger device '
+description: 'A brief explainer on how to get your Ledger device up and running,
+  connected to the Ledger Live Desktop and/or mobile app. We also explore how to
+  get your wallet connected to Metamask so that you can look at other crypto
+  assets. '
+date: 2023-04-27
+thumbnail: https://unsplash.com/photos/N4jhGAoNuGo
+location: Kitchener, ON
+---
+
+This article explains the steps required to setup a [Ledger](https://shop.ledger.com/) wallet device.
+
+> Ledger wallets are hardware cryptocurrency wallets made by Ledger, a company headquartered in Paris, France. Ledger's hardware wallets are multicurrency wallets that are used to store private keys for cryptocurrencies offline. Ledger offers two hardware wallets: the Ledger Nano S and the Ledger Nano X wallets.
+
+# Requirements
+
+---
+
+- Ledger device with the supplied micro USB cable.
+- Device (Phone/Laptop)
+
+  - For mobile users: It's recommended to use a device that is equipped with either the latest iOS 13 for Apple devices or Android 8.1 for Android devices.
+  - For computer users, the following operating systems are supported: Windows 10 or 11, macOS Big Sur, macOS Monterey, macOS Ventura, and Ubuntu LTS 20.04 or 22.04 (64-bit versions only, excluding ARM processors).
+
+## Instructions
+
+> **_note_**: It's **important to keep your recovery phrase in a safe place**, as it can be used to restore your wallet in case your device is lost or damaged. Also, make sure to keep your device and recovery phrase away from anyone who could potentially steal them, as they could gain access to your funds.
+
+Here's the step-by-step guide:
+
+**Ledger Setup:**
+
+1. Unbox the Ledger device and connect it to your computer via USB.
+2. Follow the instructions on the device's screen to choose your preferred language, create a PIN code, and write down your 24-word recovery phrase.
+
+   1. **Note: see note above about storing your recovery phrase.**
+
+3. [Download and install the Ledger Live app](https://www.ledger.com/ledger-live) on your computer from the official Ledger website.
+4. Launch the Ledger Live app and follow the on-screen instructions to connect your Ledger device to the app.
+5. Once your device is connected, you can add your preferred cryptocurrencies to your Ledger wallet by selecting the "Add Accounts" option in the Ledger Live app.
+6. Follow the on-screen instructions to select the cryptocurrency you want to add and confirm the transaction on your Ledger device.
+7. You can now use your Ledger device to securely store, send, and receive cryptocurrencies.
+
+**Metamask Setup:**
+
+1. Go to [https://metamask.io/download](https://metamask.io/download/) and click **Install MetaMask** for your browser.
+2. Next, **add** the MetaMask extension to your browser
+3. Pin the extension to your browser and select Create a new wallet.
+
+   **Important note**
+
+   We wanted to bring to your attention an important reminder regarding the use of MetaMask with your Ledger device.
+
+   - Please do **not** import your **Ledger** 24-word recovery phrase into MetaMask through the "**Import an existing wallet**" option. This would turn your Ledger device into a [hot wallet](https://www.ledger.com/academy/glossary/hot-wallet) and compromise the security of your assets.
+   - Additionally, do **not** import a secret recovery phrase provided by MetaMask into your Ledger device. MetaMask phrases are generated online and are not secure for cold storage purposes.
+
+4. Agree to the terms then choose a password and select **Create a new wallet.**
+5. Since we're using a Ledger wallet, we won't need to secure our MetaMask wallet, select **Remind me later** then **Skip**.
+6. Select **Got it!**
+7. Let's now connect your Ledger Ethereum account. Open the settings and select Connect hardware wallet.
+8. Plug your Ledger device into your computer and open the Ethereum (ETH) app on your Ledger device by navigating to the Ethereum icon and pressing both buttons simultaneously.Your Ledger device should display: **Application is ready**.
+9. Select **Ledger,** and click **Continue.**\
+   After a brief moment, a list of accounts appears. These are your Ledger Ethereum accounts.
+10. **Select an account** by ticking the box then click **Unlock.**\
+    **Which account should I pick ?**
+
+    - The first Ethereum (ETH) account you created in Ledger Live (Ethereum 1) will show at the top of the list (index 1).
+    - You can create multiple Ethereum accounts at the same time by ticking multiple boxes and selecting Unlock. This is useful if you wish to segregate your Ethereum assets. Learn more.
+
+11. All done! Your Ledger Ethereum account and ETH balance appear in MetaMask. All Ledger accounts connected to MetaMask will be displayed with a "LEDGER" tag.
+
+#### **I am confused, is my Ledger account now "in Metamask"?**
+
+> **No**, even though your Ledger Ethereum account is visible in MetaMask, the private keys (recovery phrase) responsible for managing that account are still safeguarded by your Ledger device. MetaMask does not have any access to your private keys. Your Ledger device utilizes MetaMask purely as a **visual interface**, similar to Ledger Live.
+
+## Related articles
+
+- [Setup your Ledger Nano](https://support.ledger.com/hc/en-us/articles/360000613793-Set-up-your-Ledger-Nano-S?docs=true)
+- [Connect your Ledger To Metamask](https://support.ledger.com/hc/en-us/articles/4404366864657-Connect-your-Ledger-to-MetaMask?docs=true)
+- [Ledger Support Documentation](https://support.ledger.com/hc/en-us/articles/9360567408029?docs=true)

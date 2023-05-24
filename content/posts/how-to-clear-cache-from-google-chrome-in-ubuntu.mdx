@@ -1,0 +1,30 @@
+---
+title: How to clear Cache from Google Chrome in Ubuntu
+description: 'Getting rid of temporary files and clearing cache can be helpful
+  to make your Ubuntu system run efficiently. '
+date: 2012-07-02
+thumbnail: /assets/pngwing.com.png
+location: Mississauga, ON
+---
+
+I had the need to work on a remote Ubuntu system, opting for the convenience of using [Team Viewer](https://www.teamviewer.com) for remote access. However, I would like to express a new concern that I have encountered. The desktop search functionality is not yielding any results, and the transparent menu feature is not optimal for the remote viewer. I intend to elaborate further on this matter in a subsequent discussion.
+
+Now, let us address the current issue at hand. Web browsers such as Google Chrome tend to accumulate a substantial amount of cache as you browse the internet or visit various websites. This "cache" essentially comprises files that are transferred or downloaded to your computer when you access specific websites. It is commonly known as "Temporary Internet Files," a term used by Microsoft Windows and Internet Explorer.
+
+The purpose of downloading these files to your computer is to facilitate faster access when revisiting the same websites, thereby eliminating the need to re-download all the files again. This logic is sound, isn't it?
+
+However, the act of downloading numerous files onto your computer can sometimes lead to sluggishness or rapid filling of storage, which, in turn, can cause your browser to slow down. Additionally, files within the cache may become corrupted, leading to erratic browser behaviour.
+
+In my opinion, Google Chrome is particularly notorious for accumulating excessive cache files.
+
+To address this, allow me to explain the process of clearing your cache. In Ubuntu, the cache files for Google Chrome are located in the ".cache" folder within your home directory. You can access this directory by executing the following command:
+
+` ``bash $ ls --al /home/.cache/google-chrome `﻿``
+
+To remove these files, simply empty the contents of this directory by executing either of the following commands:
+
+` ``bash $ sudo rm --r /home/.cache/google-chrome/ or $ sudo rm --r ~/.cache/google-chrome/ `﻿``
+
+Please note that the use of **sudo** is not necessary if you are already logged in as a root user or possess root privileges.
+
+As always, it is important to exercise caution and responsibility when wielding administrative powers

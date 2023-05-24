@@ -11,7 +11,18 @@ const nextConfig = {
     newNextLinkBehavior: true,
     scrollRestoration: true,
   },
-  poweredByHeader: false
+  poweredByHeader: false,
+  webpack(config, { nextRuntime }) {
+      if (typeof nextRuntime === "undefined") {
+        config.resolve.fallback = {
+          ...config.resolve.fallback,
+          fs: false,
+          path: false
+      };  
+    }
+
+    return config;
+  }
 }
 
 const withMDX = nextMDX({
