@@ -34,12 +34,16 @@ const slugToPostContent = ((postContents) => {
   return hash
 })(fetchPostContent())
 
-const Article = ({ meta, source }: Props) => {
+const Article = ({ meta, source, ...props }: Props) => {
   const components = {}
 
   const content = <MDXRemote {...source} components={components} />
 
-  return <ArticleLayout meta={meta}>{content}</ArticleLayout>
+  return (
+    <ArticleLayout meta={meta} {...props}>
+      {content}
+    </ArticleLayout>
+  )
 }
 
 export default Article
@@ -73,8 +77,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         location: data.location,
         // slug: data.slug,
         description: data.description,
-        previousPathname: '',
-        // tags: data.tags,
+        tags: data.tags,
         // author: data.author,
       },
       source: mdxSource,
