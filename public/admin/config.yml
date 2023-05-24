@@ -69,7 +69,28 @@ collections:
                   widget: 'string',
                   hint: 'Tag name for displaying on the site',
                 }
-
+      - name: 'locations'
+        label: 'Locations'
+        file: 'meta/locations.yml'
+        description: 'List of locations'
+        fields:
+          - name: locations
+            label: Locations
+            label_singular: 'Location'
+            widget: list
+            fields:
+              - {
+                  label: 'Slug',
+                  name: 'slug',
+                  widget: 'string',
+                  hint: 'The part of a URL identifies the tag',
+                }
+              - {
+                  label: 'Display Name',
+                  name: 'name',
+                  widget: 'string',
+                  hint: 'Tag name for displaying on the site',
+                }
   - name: 'posts'
     label: 'Posts'
     label_singular: 'Post'
@@ -93,6 +114,21 @@ collections:
         format: 'YYYY-MM-DD'
         dateFormat: 'YYYY-MM-DD'
         timeFormat: false
+      - label: 'Locations'
+        name: 'locations'
+        widget: list
+        summary: '{{fields.location}}'
+        fields:
+          - {
+              label: 'Location',
+              name: 'location',
+              widget: 'relation',
+              collection: 'meta',
+              file: 'location',
+              searchFields: 'locations.*.name',
+              displayFields: 'locations.*.name',
+              valueField: 'locations.*.slug',
+            }
       - label: 'Featured Image'
         name: 'thumbnail'
         widget: 'image'
