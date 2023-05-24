@@ -70,6 +70,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       meta: {
         title: data.title,
         date: data.date,
+        location: data.location,
         // slug: data.slug,
         description: data.description,
         previousPathname: '',
