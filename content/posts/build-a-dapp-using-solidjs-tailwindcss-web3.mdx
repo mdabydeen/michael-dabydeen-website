@@ -1,10 +1,12 @@
 ---
 title: Build a Dapp using SolidJS, TailwindCSS & Web3
-description: "A short tutorial on how to get started building decentralized
-  applications using SolidJS, TailwindCSS & Web3 "
+description: 'A short tutorial on how to get started building decentralized
+  applications using SolidJS, TailwindCSS & Web3 '
 date: 2022-12-01
 thumbnail: https://unsplash.com/photos/npxXWgQ33ZQ
+location: Cambridge, ON
 ---
+
 I recently discovered [SolidJS](https://www.solidjs.com) after watching this [100 Seconds video.](https://www.youtube.com/watch?v=hw3Bx5vxKl0)
 
 [SolidJS](https://www.solidjs.com) is a performance-focused reactive framework for building user interfaces.
@@ -19,46 +21,30 @@ I have documented the steps taken in this guide to help you get started.
 
 Before getting started, this guide assumes that you have the following software installed:
 
-*   [Node.js](https://nodejs.org)\- cross-platform JavaScript runtime environment
-    
-*   [Metamask](https://metamask.io) - browser-based software wallet for cryptocurrencies.
-    
-*   [Yarn](https://yarnpkg.com) - (alternative) package manager for Node.js
-    
+- [Node.js](https://nodejs.org)\- cross-platform JavaScript runtime environment
+- [Metamask](https://metamask.io) - browser-based software wallet for cryptocurrencies.
+- [Yarn](https://yarnpkg.com) - (alternative) package manager for Node.js
 
 Here's a basic outline for the approach for building a DApp using [SolidJS](https://www.solidjs.com/), [TailwindCSS](https://tailwindcss.com/), and [Web3](https://web3js.readthedocs.io/en/v1.8.1/):
 
 1.  Install [SolidJS](https://www.solidjs.com/) and [TailwindCSS](https://tailwindcss.com/) by following the instructions on their respective websites.
-    
 2.  Create a new project using SolidJS and initialize TailwindCSS in your project by running the appropriate commands.
-    
 3.  Install Web3 and any other necessary libraries, such as ethers.js, by running `npm install` or `yarn add` and specifying the libraries you want to install.
-    
 4.  Create a new file for your DApp, and import SolidJS, TailwindCSS, and Web3 at the top of the file.
-    
 5.  Use SolidJS to create a component for your DApp that contains the HTML, CSS, and JavaScript necessary to build your application. You can use TailwindCSS to add styles to your component, and Web3 to interact with the Ethereum blockchain.
-    
 6.  Use Web3 to connect to the Ethereum network and access the blockchain. You can use Web3's methods and properties to read and write data to the blockchain, as well as interact with smart contracts and other blockchain-based applications.
-    
 7.  Test your DApp locally to make sure it's working as expected, and then deploy it to the Ethereum network so that it can be used by others.
-    
 
 Keep in mind that this is just a basic outline, and there are many different ways you could build a DApp using SolidJS, TailwindCSS, and Web3. The specific details of your DApp will depend on what you're trying to build, so you may need to adjust the steps above to fit your specific needs.
 
 The following are the steps to achieve this goal:
 
 1.  Install & Setup SolidJS
-    
 2.  Install & Setup TailwindCSS for SolidJS
-    
 3.  Install & Setup Web3.js
-    
 4.  Configure Infura provider
-    
 5.  Add .env variables to SolidJS
-    
 6.  Build UI to connect to the blockchain and display the current block number
-    
 
 # Install & Setup SolidJS
 
@@ -113,7 +99,7 @@ This command will create a `tailwind.config.js` file in your root directory. Mod
 ```javascript
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {},
   },
@@ -156,24 +142,23 @@ INFURA_KEY=<YOUR INFURA KEY HERE>
 Now edit your \`src/App.jsx\` file and add the following lines of code:
 
 ```javascript
-import {  createSignal, createEffect } from 'solid-js';
-import './index.css'; // Import TailwindCSS styles
-import Web3 from 'web3';
+import { createSignal, createEffect } from 'solid-js'
+import './index.css' // Import TailwindCSS styles
+import Web3 from 'web3'
 
 const myDApp = () => {
-  const [wallet, setWallet] = createSignal("")
-  const [blockNumber, setBlockNumber] = createSignal(null);
-  const provider = `https://mainnet.infura.io/v3/${import.meta.env.INFURA_KEY}`;
+  const [wallet, setWallet] = createSignal('')
+  const [blockNumber, setBlockNumber] = createSignal(null)
+  const provider = `https://mainnet.infura.io/v3/${import.meta.env.INFURA_KEY}`
 
   // Connect to the Ethereum network
-  const web3 = new Web3(new Web3.providers.HttpProvider(provider)
-);
+  const web3 = new Web3(new Web3.providers.HttpProvider(provider))
 
-// Connect to your metamask wallet. 
+  // Connect to your metamask wallet.
   const handleWallet = async () => {
     if (ethereum) {
-      await ethereum.request({ method: "eth_requestAccounts" });
-      window.web3 = new Web3(ethereum);
+      await ethereum.request({ method: 'eth_requestAccounts' })
+      window.web3 = new Web3(ethereum)
 
       setWallet(window.web3.currentProvider.selectedAddress)
     } else {
@@ -184,8 +169,8 @@ const myDApp = () => {
   // Use Web3 to read data from the blockchain
 
   createEffect(() => {
-    web3.eth.getBlockNumber().then((result) => setBlockNumber(result));
-  }, []);
+    web3.eth.getBlockNumber().then((result) => setBlockNumber(result))
+  }, [])
 
   return (
     <div class="container mx-auto mt-6">
@@ -196,9 +181,9 @@ const myDApp = () => {
         <div>my wallet: {wallet}</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 // Render the DApp component
-export default myDApp;
+export default myDApp
 ```

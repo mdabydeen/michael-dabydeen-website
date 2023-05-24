@@ -1,10 +1,12 @@
 ---
 title: How to solve certificate expired issue in Rancher OS
-description: "A quick solution to an annoying problem in RancherOS that could
-  cause some downtime. "
+description: 'A quick solution to an annoying problem in RancherOS that could
+  cause some downtime. '
 date: 2022-02-11
 thumbnail: https://unsplash.com/photos/8CTz62aHidw
+location: Milton, ON
 ---
+
 ## Problem
 
 The rancher web application UI became inaccessible. Investigation into the logs shows that the certificate has expired
@@ -16,29 +18,25 @@ time="2021-12-29T08:27:32.616638402Z" level=info msg="Waiting for master node st
 ## Solution
 
 1.  SSH into the RancherOS Server on AWS
-    
 
 ```bash
 $ ssh -i /path/to/secure/key.pem rancher@<rancher-domain>
 ```
 
 2.  Check that the date and time on the server is correct. Change to correct date if incorrect
-    
 
 ```bash
 [rancher@<rancher-domain> ~]$ date
 Fri Feb 11 17:32:28 UTC 2022
 ```
 
-*   If the date shown is incorrect, then change the date to the correct date by using the following command
-    
+- If the date shown is incorrect, then change the date to the correct date by using the following command
 
 ```bash
 [rancher@<rancher-domain> ~]$ sudo date --set="2022-02-11 17:32:28"
 ```
 
 3.  Ensure that the rancher docker image is running
-    
 
 ```bash
 [rancher@<rancher-domain> ~]$ docker ps
@@ -47,14 +45,12 @@ CONTAINER ID        IMAGE                    COMMAND             CREATED        
 ```
 
 4.  Login to the rancher container (using container id from #3)
-    
 
 ```bash
 [rancher@<rancher-domain> ~]$ docker exec -it rancher /bin/sh
 ```
 
 5.  Delete the old certificates by running the following commands
-    
 
 ```bash
 sh-4.4# kubectl --insecure-skip-tls-verify -n kube-system delete secrets k3s-serving
@@ -63,14 +59,12 @@ sh-4.4# rm -f /var/lib/rancher/k3s/server/tls/dynamic-cert.json
 ```
 
 6.  Refresh the rancher certificates
-    
 
 ```bash
 sh-4.4# curl --insecure -sfL https://localhost:8443/v3
 ```
 
 7.  Exit the docker container
-    
 
 ```bash
 sh-4.4# exit
@@ -78,7 +72,6 @@ exit
 ```
 
 8.  Restart the docker container
-    
 
 ```bash
 [rancher@<rancher-domain> ~]$ docker restart rancher
