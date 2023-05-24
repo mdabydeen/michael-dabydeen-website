@@ -1,0 +1,45 @@
+---
+title: Configure Form Based Authentication for Outlook Web Access in Microsoft
+  Exchange Server
+description: Implementing Form Based Authentication (FBA) in Microsoft Exchange
+  for Outlook Web Access (OWA) is a simple process that provides security
+  benefits such as session expiration and secure logouts. It involves
+  configuring OWA with SSL, enabling FBA on the HTTP Virtual Server in Exchange
+  System Manager, and directing clients to access the secure site using HTTPS.
+  No additional client-side configuration is needed.
+date: 2009-10-03
+locations:
+  - place: georgetown-gy
+thumbnail: https://unsplash.com/photos/IU4fyV71PD4
+tags:
+  - tag: operating-systems
+---
+Implementing Form Based Authentication (FBA) for Outlook Web Access (OWA) in Microsoft Exchange is a straightforward and easy process. By using FBA, your users can enjoy the convenience of accessing their email services in a similar manner to popular web-based email providers like GMail, Yahoo Mail, and Hotmail.
+
+## Advantages of Form Based Authentication (FBA)
+
+There are several security benefits to implementing FBA:
+
+1. **Session Expiration**: If a session remains inactive for a certain period, it will expire. Users must re-authenticate to regain access.
+2. **No Password Remembering**: Users are unable to utilize the "Remember my password" feature in Internet Explorer.
+3. **Secure Log Out**: When logging out, users are completely logged out, requiring re-authentication to access the system again.
+
+In the past, with Exchange 2000, users had to close the browser window to complete the logout session.
+
+## Steps to Implement FBA
+
+**Configure OWA with SSL**: Follow the instructions in this post to set up SSL for OWA. This step won't be discussed further here.
+
+Once you have successfully configured SSL, you need to enable Forms-Based Authentication on the HTTP Virtual Server in Microsoft Exchange System Manager. Here's how:
+
+1. Open Exchange System Manager.
+2. Locate and expand your server object.
+3. Expand Protocols and then HTTP.
+4. Right-click on the Exchange Virtual Server and choose Properties.
+5. In the Settings tab, select the Enable Forms Based Authentication check-box.
+6. Click OK and dismiss any warning messages by clicking OK again.
+7. Restart the IIS services either from the Services snap-in or the IIS Admin snap-in.
+
+## Client-side Configuration
+
+No specific client-side configuration is required. Simply direct your clients' web browsers to the same URL they used before, but replace "HTTP" with "HTTPS." A security warning may appear, notifying them that they are entering a secure site. If you have correctly configured your SSL digital certificate as described in this post, everything should function properly.
