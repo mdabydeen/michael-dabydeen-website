@@ -92,9 +92,9 @@ export default Home;
 
 
 export async function getStaticProps() {
-  // if (process.env.NODE_ENV === 'production') {
-  //   await generateRssFeed()
-  // }
+  if (process.env.NODE_ENV === 'production') {
+    await generateRssFeed()
+  }
 
   const postContents = listPostContent(1, 4).map(it => it)
 
