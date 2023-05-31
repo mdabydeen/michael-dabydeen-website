@@ -13,3 +13,7 @@ tags:
     name: Servers
   - slug: web-hosting
     name: Web Hosting
+  - slug: lead-developer
+    name: Lead Developer
+  - slug: engineering-manager
+    name: Engineering Manager
