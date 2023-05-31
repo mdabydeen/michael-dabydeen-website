@@ -67,8 +67,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   })
 
-  console.log(data.location[0].city)
-
   const mdxSource = await serialize(content, { parseFrontmatter: true })
 
   return {
@@ -76,8 +74,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       meta: {
         title: data.title,
         date: data.date,
-        location: data.location[0].city,
-        slug: data.slug,
+        location: data.location,
+        // slug: data.slug,
         description: data.description,
         tags: data.tags,
         // author: data.author,

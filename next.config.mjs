@@ -12,28 +12,21 @@ const nextConfig = {
     scrollRestoration: true,
   },
   poweredByHeader: false,
-  webpack(config, { nextRuntime, isServer }) {
+  webpack(config, { nextRuntime }) {
       if (typeof nextRuntime === "undefined") {
         config.resolve.fallback = {
           ...config.resolve.fallback,
           fs: false,
           path: false
-      };
-
-      //console.log(config.module)
-     
-          config.module.rules.push(
-            ...[
-              {
-                test: /\.ya?ml$/,
-                use: "js-yaml-loader",
-              }
-            ]
-          );
-      
-
-        // console.log(config.module)
+        }
       }
+
+      config.module.rules.push({
+        test: /\.ya?ml$/,
+        use: 'js-yaml-loader',
+      });
+
+      
 
     return config;
   }

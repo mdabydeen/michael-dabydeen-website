@@ -11,16 +11,11 @@ import {
 } from '../components/SocialIcons'
 
 import { SocialLink } from '../components/SocialLink'
-// import { Photos } from '../components/Photos'
-
 import { generateRssFeed } from '../lib/generateRssFeed'
-// import { getAllArticles } from '../lib/getAllArticles'
 import { listPostContent } from '../lib/getAllPosts'
 
 
 const Home = ({ articles }) => {
-
-  // console.log('ARTICLES =>', articles)
 
   return (
     <>

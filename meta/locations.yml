@@ -1,5 +1,25 @@
 locations:
   - slug: brampton-on
-    name: Brampton Ontario
+    name: Brampton, Ontario
   - slug: mississauga-on
-    name: Mississauga Ontario
+    name: Mississauga, Ontario
+  - slug: milton-on
+    name: Milton, Ontario
+  - slug: montreal-qc
+    name: Montreal, Quebec
+  - slug: kitchener-on
+    name: Kitchener, Ontario
+  - slug: waterloo-on
+    name: Waterloo, Ontario
+  - slug: woodstock-on
+    name: Woodstock, Ontario
+  - slug: vaughan-on
+    name: Vaughan, Ontario
+  - slug: belleville-on
+    name: Belleville, Ontario
+  - slug: cambridge-on
+    name: Cambridge, Ontario
+  - slug: georgetown-gy
+    name: Georgetown, Guyana
+  - slug: newamsterdam-gy
+    name: New Amsterdam, Berbice, Guyana

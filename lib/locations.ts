@@ -10,7 +10,7 @@ const locationMap: { [key: string] : LocationContent } = generateLocationMap()
 function generateLocationMap() : { [key: string]: LocationContent } {
   let result: { [key: string]: LocationContent } = {};
 
-  for (const location of locations.city) {
+  for (const location of locations.locations) {
     result[location.slug] = location;
   }
 
@@ -18,9 +18,10 @@ function generateLocationMap() : { [key: string]: LocationContent } {
 }
 
 export function getLocation(slug: string) {
+  console.log(locationMap[slug])
   return locationMap[slug];
 }
 
 export function listLocations(): LocationContent[] {
-  return locations.city;
+  return locations.locations;
 }

@@ -31,6 +31,12 @@ export function ArticleLayout({
     return children
   }
 
+  const [city]  = meta.location
+
+  console.log('LOCATION! LOCATION! LOCATION! ==>', meta.location)
+  console.log('LOCATION! LOCATION! LOCATION! ==>', city)
+
+
   return (
     <>
       <Head>
@@ -63,7 +69,7 @@ export function ArticleLayout({
             
                     <span className="ml-3 justify-start grow">{formatDate(meta.date)}</span>
                     
-                    <span className='mr-3 text-zinc-400 dark:text-zinc-500'>{getLocation(meta.location)}</span>
+                    <span className='mr-3 text-zinc-400 dark:text-zinc-500'>{getLocation(city.city).name}</span>
 
                   </time>
               </header>
