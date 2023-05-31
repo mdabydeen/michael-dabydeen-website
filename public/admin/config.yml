@@ -1,7 +1,8 @@
 local_backend: true
 
 backend:
-  name: git-gateway
+  # name: git-gateway
+  name: test-repo
   branch: main
 media_folder: public/assets
 public_folder: /assets
@@ -119,8 +120,8 @@ collections:
         widget: 'list'
         summary: '{{fields.location}}'
         fields:
-          - label: 'Place'
-            name: 'place'
+          - label: 'City'
+            name: 'city'
             widget: 'relation'
             collection: 'meta'
             file: 'locations'
