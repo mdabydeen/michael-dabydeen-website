@@ -7,5 +7,6 @@
     "technology",
     "engineering leader"
   ],
-  "site_description": "Software engineering leader, founder, Web3, blockchain & open source enthusiast"
+  "site_description": "Software engineering leader, founder, Web3, blockchain & open source enthusiast",
+  "posts_per_page": 5
 }

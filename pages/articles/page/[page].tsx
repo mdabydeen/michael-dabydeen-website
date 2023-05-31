@@ -1,12 +1,24 @@
 import Head from 'next/head'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { Card } from '../../../components/Card'
+import { Pagination } from '../../../components/Pagination'
+import { SimpleLayout } from '../../../components/SimpleLayout'
+import {
+  listPostContent,
+  countPosts,
+  PostContent,
+} from '../../../lib/getAllPosts'
+import { formatDate } from '../../../lib/formatDate'
+import config from '../../../lib/config'
 
-import { Card } from '../../components/Card'
-import { Pagination } from '../../components/Pagination'
-import { SimpleLayout } from '../../components/SimpleLayout'
-import { listPostContent, countPosts } from '../../lib/getAllPosts'
-import { formatDate } from '../../lib/formatDate'
-import config from '../../lib/config'
-
+type Props = {
+  articles: PostContent[]
+  page: number
+  pagination: {
+    current: number
+    pages: number
+  }
+}
 
 function Article({ article }) {
   return (
@@ -37,7 +49,7 @@ function Article({ article }) {
   )
 }
 
-export default function ArticlesIndex({ articles, pagination }) {
+export default function ArticlesIndex({ articles, pagination }: Props) {
   return (
     <>
       <Head>
@@ -58,29 +70,44 @@ export default function ArticlesIndex({ articles, pagination }) {
             ))}
           </div>
         </div>
-        <Pagination  current={pagination.current}
+        <Pagination
+          current={pagination.current}
           pages={pagination.pages}
           link={{
-            href: (page) => (page === 1 ? "/articles" : "/articles/page/[page]"),
-            as: (page) => (page === 1 ? null : "/articles/page/" + page),
-          }} />
+            href: (page) =>
+              page === 1 ? '/articles' : '/articles/page/[page]',
+            as: (page) => (page === 1 ? null : '/articles/page/' + page),
+          }}
+        />
       </SimpleLayout>
     </>
   )
 }
 
-export async function getStaticProps() {
-  const postContents =  (await listPostContent(1, config.posts_per_page).map(it => it))
-
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const page = parseInt(params?.page as string)
+  const posts = listPostContent(page, config.posts_per_page)
+  // const tags = listTags()
   const pagination = {
-    current: 1,
+    current: page,
     pages: Math.ceil(countPosts() / config.posts_per_page),
-  };
-
+  }
   return {
     props: {
-      articles: postContents,
+      page,
+      articles: posts,
       pagination,
     },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const pages = Math.ceil(countPosts() / config.posts_per_page)
+  const paths = Array.from(Array(pages - 1).keys()).map((it) => ({
+    params: { page: (it + 2).toString() },
+  }))
+  return {
+    paths: paths,
+    fallback: false,
   }
 }
