@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import clsx from 'clsx'
 
 import image1 from '../images/photos/image-1.jpg'

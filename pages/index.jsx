@@ -93,13 +93,8 @@ export async function getStaticProps() {
 
   const postContents = listPostContent(1, 4).map(it => it)
 
-  // console.log(postContents)
-
   return {
     props: {
-      // articles: (await getAllArticles())
-      //   .slice(0, 4)
-      //   .map(({ component, ...meta }) => meta),
       articles: postContents,
     },
   }

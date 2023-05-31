@@ -33,10 +33,6 @@ export function ArticleLayout({
 
   const [city]  = meta.location
 
-  console.log('LOCATION! LOCATION! LOCATION! ==>', meta.location)
-  console.log('LOCATION! LOCATION! LOCATION! ==>', city)
-
-
   return (
     <>
       <Head>

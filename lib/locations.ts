@@ -18,7 +18,6 @@ function generateLocationMap() : { [key: string]: LocationContent } {
 }
 
 export function getLocation(slug: string) {
-  console.log(locationMap[slug])
   return locationMap[slug];
 }
 

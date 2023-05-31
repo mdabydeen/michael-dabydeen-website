@@ -20,7 +20,11 @@ type Props = {
   }
 }
 
-function Article({ article }) {
+type Article = {
+  article: PostContent
+}
+
+function Article({ article }: Article) {
   return (
     <article className="md:grid md:grid-cols-4 md:items-baseline">
       <Card className="md:col-span-3">
@@ -74,9 +78,10 @@ export default function ArticlesIndex({ articles, pagination }: Props) {
           current={pagination.current}
           pages={pagination.pages}
           link={{
-            href: (page) =>
+            href: (page: number) =>
               page === 1 ? '/articles' : '/articles/page/[page]',
-            as: (page) => (page === 1 ? null : '/articles/page/' + page),
+            as: (page: number) =>
+              page === 1 ? null : '/articles/page/' + page,
           }}
         />
       </SimpleLayout>

@@ -1,16 +1,16 @@
 import { generatePagination } from '../lib/pagination'
 import Link from 'next/link'
 
-type Props = {
-  current: number
-  pages: number
-  link: {
-    href: (page: number) => string
-    as: (page: number) => string
-  }
-}
+// type Props = {
+//   current: number
+//   pages: number
+//   link: {
+//     href: (page: number) => string
+//     as: (page: number) => string
+//   }
+// }
 
-export function Pagination({ current, pages, link }: Props) {
+export function Pagination({ current, pages, link }) {
   const pagination = generatePagination(current, pages)
   return (
     <ul>
@@ -40,7 +40,7 @@ export function Pagination({ current, pages, link }: Props) {
           font-size: 1.25rem;
         }
         a.active {
-          color: #222;
+          color: #777;
           font-weight: bold;
         }
       `}</style>
