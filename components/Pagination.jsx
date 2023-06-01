@@ -19,7 +19,7 @@ export function Pagination({ current, pages, link }) {
           {it.excerpt ? (
             '...'
           ) : (
-            <Link href={link.href(it?.page)} as={link.as(it?.page)}>
+            <Link href={link.href(it?.page)} as={link.as(it?.page)} legacyBehavior>
               <a className={it?.page === current ? 'active' : null}>
                 {it.page}
               </a>
