@@ -40,7 +40,7 @@ export function Pagination({ current, pages, link }) {
           font-size: 1.25rem;
         }
         a.active {
-          color: #777;
+          color: ##14b8a6;
           font-weight: bold;
         }
       `}</style>
