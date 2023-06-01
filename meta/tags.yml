@@ -1,15 +1,19 @@
 tags:
-  - slug: document
-    name: document
-  - slug: mock
-    name: mock
-  - slug: style
-    name: style
-  - slug: license
-    name: license
-  - slug: mdx
-    name: mdx
-  - slug: markdown
-    name: markdown
   - slug: blockchain
-    name: blockchain
+    name: Blockchain
+  - slug: ethereum
+    name: Ethereum
+  - slug: operating-systems
+    name: Operating Systems
+  - slug: linux
+    name: Linux
+  - slug: desktop
+    name: Desktop
+  - slug: servers
+    name: Servers
+  - slug: web-hosting
+    name: Web Hosting
+  - slug: lead-developer
+    name: Lead Developer
+  - slug: engineering-manager
+    name: Engineering Manager

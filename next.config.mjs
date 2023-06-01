@@ -18,8 +18,15 @@ const nextConfig = {
           ...config.resolve.fallback,
           fs: false,
           path: false
-      };  
-    }
+        }
+      }
+
+      config.module.rules.push({
+        test: /\.ya?ml$/,
+        use: 'js-yaml-loader',
+      });
+
+      
 
     return config;
   }

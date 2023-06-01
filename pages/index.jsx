@@ -11,16 +11,11 @@ import {
 } from '../components/SocialIcons'
 
 import { SocialLink } from '../components/SocialLink'
-// import { Photos } from '../components/Photos'
-
 import { generateRssFeed } from '../lib/generateRssFeed'
-// import { getAllArticles } from '../lib/getAllArticles'
 import { listPostContent } from '../lib/getAllPosts'
 
 
 const Home = ({ articles }) => {
-
-  // console.log('ARTICLES =>', articles)
 
   return (
     <>
@@ -92,19 +87,14 @@ export default Home;
 
 
 export async function getStaticProps() {
-  // if (process.env.NODE_ENV === 'production') {
-  //   await generateRssFeed()
-  // }
+  if (process.env.NODE_ENV === 'production') {
+    await generateRssFeed()
+  }
 
   const postContents = listPostContent(1, 4).map(it => it)
 
-  // console.log(postContents)
-
   return {
     props: {
-      // articles: (await getAllArticles())
-      //   .slice(0, 4)
-      //   .map(({ component, ...meta }) => meta),
       articles: postContents,
     },
   }

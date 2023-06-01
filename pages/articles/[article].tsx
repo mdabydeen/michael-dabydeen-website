@@ -16,7 +16,7 @@ interface Meta {
   description?: string
   fullPath: string
   thumbnail?: string
-  location?: string
+  location?: string[]
 }
 
 interface Hash {
@@ -81,12 +81,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         // author: data.author,
       },
       source: mdxSource,
-      // title: data.title,
-      // dateString: data.date,
-      // slug: data.slug,
-      // description: '',
-      // tags: data.tags,
-      // author: data.author,
     },
   }
 }
