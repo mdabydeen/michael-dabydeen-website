@@ -34,7 +34,7 @@ const Home = ({ articles }) => {
           <h1 className="text-3xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
           Innovative Software Engineering Leader &amp; Blockchain Pioneer 
           </h1>
-          <h3 className="text-2xl text-zinc-600 dark:text-zinc-100 italic pt-4">Empowering the Future of Tech</h3>
+          <h3 className="text-2xl text-zinc-600 dark:text-zinc-100 italic pt-4 sm:text-xl">Empowering the Future of Tech</h3>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             I&apos;m Mike, a technologist, engineering leader and entrepreneur based in
             Toronto, Canada. I&apos;m CTO of UREEQA, where we develop technologies
