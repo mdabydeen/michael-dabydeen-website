@@ -19,7 +19,7 @@ export type PostContent = {
 
 let postCache: PostContent[];
 
-export function fetchPostContent(): PostContent[] {
+export function  fetchPostContent(): PostContent[] {
   if (postCache) {
     return postCache;
   }

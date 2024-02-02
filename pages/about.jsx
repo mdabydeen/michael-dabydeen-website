@@ -96,7 +96,7 @@ export default function About() {
           <div className="lg:pl-20">
             <ul role="list">
               <SocialLink href="https://twitter.com/_firelinks" icon={TwitterIcon}>
-                Follow on Twitter
+                Follow on X (formerly Twitter)
               </SocialLink>
               <SocialLink href="https://instagram.com/_firelinks" icon={InstagramIcon} className="mt-4">
                 Follow on Instagram
