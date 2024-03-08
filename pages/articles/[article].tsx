@@ -1,11 +1,11 @@
-import { ArticleLayout } from '../../components/ArticleLayout'
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { PostContent, fetchPostContent } from '../../lib/getAllPosts'
-import matter from 'gray-matter'
 import * as fs from 'fs'
+import matter from 'gray-matter'
 import yaml from 'js-yaml'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import { ArticleLayout } from '../../components/ArticleLayout'
+import { fetchPostContent, PostContent } from '../../lib/getAllPosts'
 
 interface Meta {
   title: string
@@ -28,9 +28,12 @@ export type Props = {
   source: MDXRemoteSerializeResult
 }
 
-const slugToPostContent = ((postContents) => {
+const slugToPostContent = (async (postContents: Promise<PostContent[]>) => {
   let hash: Hash = {}
-  postContents.forEach((post) => (hash[post.slug] = post))
+  const contents = await postContents
+
+  contents.forEach((post) => (hash[post.slug] = post))
+
   return hash
 })(fetchPostContent())
 
@@ -48,8 +51,28 @@ const Article = ({ meta, source, ...props }: Props) => {
 
 export default Article
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = fetchPostContent().map((article) => '/articles/' + article.slug)
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  const content = await fetchPostContent()
+  let paths: {
+    params: {
+      article: string
+    }
+    locale?: string
+  }[] = []
+
+  if (locales) {
+    locales.forEach((locale) => {
+      const localePaths = content.map((article) => ({
+        params: { article: article.slug },
+        locale,
+      }))
+      paths = [...paths, ...localePaths]
+    })
+  } else {
+    paths = content.map((article) => ({
+      params: { article: article.slug },
+    }))
+  }
   return {
     paths,
     fallback: false,
@@ -58,8 +81,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.article as string
-
-  const source = fs.readFileSync(slugToPostContent[slug].fullPath, 'utf8')
+  const posts = await slugToPostContent
+  const source = await fs.promises.readFile(posts[slug].fullPath, 'utf8')
 
   const { content, data } = matter(source, {
     engines: {
@@ -75,10 +98,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         title: data.title,
         date: data.date,
         location: data.location,
-        // slug: data.slug,
+        //slug: data.slug,
         description: data.description,
         tags: data.tags,
-        // author: data.author,
+        //author: data.author,
       },
       source: mdxSource,
     },

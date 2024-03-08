@@ -1,5 +1,5 @@
-import Head from "next/head";
-import { Container } from "../components/Container";
+import Head from 'next/head'
+import { Container } from '../components/Container'
 import { Article } from '../components/Article'
 import { Newsletter } from '../components/Newsletter'
 import Resume from '../components/Resume'
@@ -14,9 +14,7 @@ import { SocialLink } from '../components/SocialLink'
 import { generateRssFeed } from '../lib/generateRssFeed'
 import { listPostContent } from '../lib/getAllPosts'
 
-
 const Home = ({ articles }) => {
-
   return (
     <>
       <Head>
@@ -26,20 +24,22 @@ const Home = ({ articles }) => {
         </title>
         <meta
           name="description"
-          content="I&apos;m Mike, a Software engineering leader and entrepreneur based in Toronto, Canada. I&apos;m CTO of UREEQA, where we develop technologies that empower creators to manage, monetize &amp; protect on their work."
+          content="I'm Mike, a Software engineering leader and entrepreneur based in Toronto, Canada. I'm CTO of UREEQA, where we develop technologies that empower creators to manage, monetize &amp; protect on their work."
         />
       </Head>
       <Container className="mt-9">
         <div className="max-w-4xl">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-          Innovative Software Engineering Leader &amp; Blockchain Pioneer 
+            Innovative Software Engineering Leader &amp; Blockchain Pioneer
           </h1>
-          <h3 className="text-2xl text-zinc-600 dark:text-zinc-100 italic pt-4 sm:text-xl">Empowering the Future of Tech</h3>
+          <h3 className="pt-4 text-2xl italic text-zinc-600 dark:text-zinc-100 sm:text-xl">
+            Empowering the Future of Tech
+          </h3>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I&apos;m Mike, a technologist, engineering leader and entrepreneur based in
-            Toronto, Canada. I&apos;m CTO of UREEQA, where we develop technologies
-            that empower creators to manage, monetize &amp; protect on their
-            work using blockchain.
+            I&apos;m Mike, a technologist, engineering leader and entrepreneur
+            based in Toronto, Canada. I&apos;m CTO of UREEQA, where we develop
+            technologies that empower creators to manage, monetize &amp; protect
+            on their work using blockchain.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
@@ -80,18 +80,21 @@ const Home = ({ articles }) => {
         </div>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
 
-
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
   if (process.env.NODE_ENV === 'production') {
     await generateRssFeed()
   }
 
-  const postContents = listPostContent(1, 4).map(it => it)
+  const postContents = await listPostContent(1, 4, null, locale).then(
+    (posts) => {
+      return posts.map((it) => it)
+    }
+  )
 
   return {
     props: {

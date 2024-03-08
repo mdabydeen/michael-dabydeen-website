@@ -11,28 +11,28 @@ const nextConfig = {
     scrollRestoration: true,
   },
   poweredByHeader: false,
-  webpack(config, { nextRuntime }) {
-      if (typeof nextRuntime === "undefined") {
-        config.resolve.fallback = {
-          ...config.resolve.fallback,
-          fs: false,
-          path: false
-        }
-      }
-
-      config.module.rules.push({
-        test: /\.ya?ml$/,
-        use: 'js-yaml-loader',
-      });
-
-      
-
-    return config;
-  },
   i18n: {
-    locales: ['en', 'es', 'fr'],
-    defaultLocale: 'en'
-  }
+    locales: ['default', 'en', 'es'],
+    defaultLocale: 'default',
+    localeDetection: false,
+  },
+  trailingSlash: true,
+  webpack(config, { nextRuntime }) {
+    if (typeof nextRuntime === 'undefined') {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+      }
+    }
+
+    config.module.rules.push({
+      test: /\.ya?ml$/,
+      use: 'js-yaml-loader',
+    })
+
+    return config
+  },
 }
 
 const withMDX = nextMDX({

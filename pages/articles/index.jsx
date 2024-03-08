@@ -7,7 +7,6 @@ import { listPostContent, countPosts } from '../../lib/getAllPosts'
 import { formatDate } from '../../lib/formatDate'
 import config from '../../lib/config'
 
-
 function Article({ article }) {
   return (
     <article className="md:grid md:grid-cols-4 md:items-baseline">
@@ -58,24 +57,31 @@ export default function ArticlesIndex({ articles, pagination }) {
             ))}
           </div>
         </div>
-        <Pagination  current={pagination.current}
+        <Pagination
+          current={pagination.current}
           pages={pagination.pages}
           link={{
-            href: (page) => (page === 1 ? "/articles" : "/articles/page/[page]"),
-            as: (page) => (page === 1 ? null : "/articles/page/" + page),
-          }} />
+            href: (page) =>
+              page === 1 ? '/articles' : '/articles/page/[page]',
+            as: (page) => (page === 1 ? null : '/articles/page/' + page),
+          }}
+        />
       </SimpleLayout>
     </>
   )
 }
 
-export async function getStaticProps() {
-  const postContents =  (await listPostContent(1, config.posts_per_page).map(it => it))
+export async function getStaticProps({ locale }) {
+  const contents = await listPostContent(1, config.posts_per_page, '', locale)
+
+  const postContents = contents.map((it) => it)
+
+  const postCount = await countPosts()
 
   const pagination = {
     current: 1,
-    pages: Math.ceil(countPosts() / config.posts_per_page),
-  };
+    pages: Math.ceil(postCount / config.posts_per_page),
+  }
 
   return {
     props: {

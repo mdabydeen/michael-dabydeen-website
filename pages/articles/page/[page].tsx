@@ -90,12 +90,14 @@ export default function ArticlesIndex({ articles, pagination }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const pageCount = await countPosts()
   const page = parseInt(params?.page as string)
   const posts = listPostContent(page, config.posts_per_page)
+
   // const tags = listTags()
   const pagination = {
     current: page,
-    pages: Math.ceil(countPosts() / config.posts_per_page),
+    pages: Math.ceil(pageCount / config.posts_per_page),
   }
   return {
     props: {
@@ -107,7 +109,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const pages = Math.ceil(countPosts() / config.posts_per_page)
+  const pageCount = await countPosts()
+  const pages = Math.ceil(pageCount / config.posts_per_page)
   const paths = Array.from(Array(pages - 1).keys()).map((it) => ({
     params: { page: (it + 2).toString() },
   }))
