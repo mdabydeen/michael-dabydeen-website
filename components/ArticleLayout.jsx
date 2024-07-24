@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { Container } from '../components/Container'
 import { formatDate } from '../lib/formatDate'
 import { Prose } from '../components/Prose'
+import { getLocation } from '../lib/locations'
 
 function ArrowLeftIcon(props) {
   return (
@@ -29,6 +30,8 @@ export function ArticleLayout({
   if (isRssFeed) {
     return children
   }
+
+  const [city]  = meta.location
 
   return (
     <>
@@ -62,7 +65,7 @@ export function ArticleLayout({
             
                     <span className="ml-3 justify-start grow">{formatDate(meta.date)}</span>
                     
-                    <span className='mr-3 text-zinc-400 dark:text-zinc-500'>{meta.location}</span>
+                    <span className='mr-3 text-zinc-400 dark:text-zinc-500'>{getLocation(city.city).name}</span>
 
                   </time>
               </header>

@@ -16,7 +16,7 @@ interface Meta {
   description?: string
   fullPath: string
   thumbnail?: string
-  location?: string
+  location?: string[]
 }
 
 interface Hash {
