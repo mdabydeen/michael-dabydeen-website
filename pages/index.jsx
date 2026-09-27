@@ -69,8 +69,8 @@ const Home = ({ articles }) => {
           <div className="flex flex-col gap-16">
             <section className="text-base text-zinc-600 dark:text-zinc-400">
               <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Recent writing</h2>
-              <p className="mt-4"><a href="https://dev.to/_firelinks/system-one-models-in-an-agent-loop-classify-first-authorise-in-code-joh" className="underline">System One models in an agent loop: classify first, authorise in code</a></p>
-              <p className="mt-3">A design discussion about typed decisions and where application policy controls an agent&apos;s actions. Published on DEV, 26 September 2026.</p>
+              <p className="mt-4"><a href="https://dev.to/_firelinks/a-review-contract-for-an-agent-authored-pull-request-2en6" className="underline">A review contract for an agent-authored pull request</a></p>
+              <p className="mt-3">A design note about scoped access, revision-bound evidence, protected checks, and recovery when an agent proposes a change. Published on DEV, 27 September 2026.</p>
               <p className="mt-4"><a href="https://dev.to/_firelinks" className="underline">Read more on DEV</a></p>
             </section>
             <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">From the archive</h2>
