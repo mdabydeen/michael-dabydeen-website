@@ -64,6 +64,10 @@ export default function AiAssistedCodeReviewWorkshop() {
               The free <a href="/resources/review-kit.zip" className="underline">review kit</a> includes
               the exercise, answer, worksheet, sample team output, and facilitator guide.
             </p>
+            <p className="mt-4">
+              For a focused first discussion, use the public <a href="https://github.com/mdabydeen/stopline/blob/main/docs/team-evaluation-guide.md" className="underline">team evaluation guide</a>.
+              It records one proposed action&apos;s allow, ask, and block boundary, along with evidence and recovery ownership.
+            </p>
           </section>
 
           <section>
