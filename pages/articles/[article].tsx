@@ -74,6 +74,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       meta: {
         title: data.title,
         date: data.date,
+        slug,
         location: data.location,
         // slug: data.slug,
         description: data.description,
