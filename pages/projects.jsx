@@ -8,6 +8,7 @@ const projects = [
     name: 'Stopline',
     description: 'An experimental decision gate for browser agents. A model classifies each proposed action and a policy in code decides whether it runs. The repository documents the mechanism and its limits.',
     link: { href: 'https://github.com/mdabydeen/stopline', label: 'Inspect Stopline on GitHub' },
+    secondaryLink: { href: 'https://github.com/mdabydeen/stopline/releases/tag/v0.1.0', label: 'Read the v0.1.0 release' },
   },
   {
     name: 'Metron',
@@ -60,6 +61,13 @@ export default function Projects() {
                 <LinkIcon className="h-6 w-6 flex-none" />
                 <span className="ml-2">{project.link.label}</span>
               </p>
+              {project.secondaryLink && (
+                <p className="relative z-10 mt-3 text-sm font-medium text-teal-700 dark:text-teal-400">
+                  <a href={project.secondaryLink.href} className="underline">
+                    {project.secondaryLink.label}
+                  </a>
+                </p>
+              )}
             </Card>
           ))}
         </ul>
