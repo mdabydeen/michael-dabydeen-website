@@ -6,15 +6,15 @@ export default function ThankYou() {
   return (
     <>
       <Head>
-        <title>You’re subscribed - Mike Dabydeen</title>
+        <title>Newsletter unavailable - Mike Dabydeen</title>
         <meta
           name="description"
-          content="Thanks for subscribing to my newsletter."
+          content="Newsletter signup is unavailable. The review kit remains free to download."
         />
       </Head>
       <SimpleLayout
-        title="Thanks for subscribing."
-        intro="I'll send you an email any time I publish a new blog post, release a new project, or have anything interesting to share that I think you'd want to hear about. You can unsubscribe at any time, no hard feelings."
+        title="Newsletter signup is unavailable."
+        intro="No subscription is confirmed by this page. You can download the complete free review kit from the Projects page, or follow my writing on DEV."
       />
     </>
   )

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Container } from "../components/Container";
 import { Article } from '../components/Article'
-import { Newsletter } from '../components/Newsletter'
+import { ReviewKit } from '../components/ReviewKit'
 import Resume from '../components/Resume'
 import {
   TwitterIcon,
@@ -21,25 +21,23 @@ const Home = ({ articles }) => {
     <>
       <Head>
         <title>
-          Mike Dabydeen - Software engineering leader, founder, Web3, blockchain
-          &amp; open source enthusiast
+          Mike Dabydeen - Software engineering leader and educator
         </title>
         <meta
           name="description"
-          content="I&apos;m Mike, a Software engineering leader and entrepreneur based in Toronto, Canada. I&apos;m CTO of UREEQA, where we develop technologies that empower creators to manage, monetize &amp; protect on their work."
+          content="I lead software teams and teach systems design. Writing and practical examples on API behaviour, software delivery, and reviewing automated work."
         />
       </Head>
       <Container className="mt-9">
         <div className="max-w-4xl">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-          Innovative Software Engineering Leader &amp; Blockchain Pioneer 
+          I lead software teams and teach systems design.
           </h1>
-          <h3 className="text-2xl text-zinc-600 dark:text-zinc-100 italic pt-4 sm:text-xl">Empowering the Future of Tech</h3>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I&apos;m Mike, a technologist, engineering leader and entrepreneur based in
-            Toronto, Canada. I&apos;m CTO of UREEQA, where we develop technologies
-            that empower creators to manage, monetize &amp; protect on their
-            work using blockchain.
+            I&apos;m Mike Dabydeen, based in Toronto. I work on enterprise logistics
+            APIs at Purolator Digital Lab and creator IP protection at UREEQA,
+            and teach at Sheridan and Conestoga. I write about the decisions
+            behind software that people need to operate and trust.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
@@ -58,7 +56,7 @@ const Home = ({ articles }) => {
               icon={GitHubIcon}
             />
             <SocialLink
-              href="https://linkedin.com/in/michaeld1"
+              href="https://www.linkedin.com/in/mdabydeen/"
               aria-label="Follow on LinkedIn"
               icon={LinkedInIcon}
             />
@@ -69,12 +67,19 @@ const Home = ({ articles }) => {
       <Container className="mt-16 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
+            <section className="text-base text-zinc-600 dark:text-zinc-400">
+              <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Recent writing</h2>
+              <p className="mt-4"><a href="https://dev.to/_firelinks/system-one-models-in-an-agent-loop-classify-first-authorise-in-code-joh" className="underline">System One models in an agent loop: classify first, authorise in code</a></p>
+              <p className="mt-3">A design discussion about typed decisions and where application policy controls an agent&apos;s actions. Published on DEV, 26 September 2026.</p>
+              <p className="mt-4"><a href="https://dev.to/_firelinks" className="underline">Read more on DEV</a></p>
+            </section>
+            <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">From the archive</h2>
             {articles?.map((article) => (
               <Article key={article?.slug} article={article} />
             ))}
           </div>
-          <div className="space-y-10 lg:pl-16 xl:pl-24">
-            <Newsletter />
+          <div className="order-first space-y-10 lg:order-last lg:pl-16 xl:pl-24">
+            <ReviewKit />
             <Resume />
           </div>
         </div>
