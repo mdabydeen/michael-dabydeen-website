@@ -41,12 +41,12 @@ const Home = ({ articles }) => {
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
-              href="https://twitter.com/_firelinks"
-              aria-label="Follow on Twitter"
+              href="https://x.com/_firelinks"
+              aria-label="Follow on X"
               icon={TwitterIcon}
             />
             <SocialLink
-              href="https://instagram.com/_firelinks"
+              href="https://www.instagram.com/_firelinks/"
               aria-label="Follow on Instagram"
               icon={InstagramIcon}
             />
