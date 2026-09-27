@@ -1,0 +1,97 @@
+---
+title: 'The Agent-Ready API Is Not an API With an MCP Server'
+description: 'A practical set of API properties for agent-facing workflows: explicit effects, idempotency, bounded retrieval, typed failures, and recovery.'
+date: 2026-09-11
+location:
+  - city: toronto-on
+tags:
+  - tag: ai-agents
+  - tag: apis
+  - tag: software-architecture
+---
+
+Adding an MCP server to an API can make a tool available to an agent. It does not make the API safe for an agent to use.
+
+That distinction matters because an API designed for a person behind a product interface carries assumptions a non-human caller does not share. A person sees warning copy, notices an unexpected result, and understands that a retry should not create a second shipment, payment, or customer record.
+
+An agent sees a goal, a tool description, and an error. If the contract is vague, it will try reasonable things quickly. That is the capability we are trying to use. It is also why the underlying interface needs stronger operating properties.
+
+I have spent enough time around external integrations to distrust the phrase “the API is documented.” Documentation explains intended behaviour. Production reliability depends on what the caller can prove, constrain, and recover from when behaviour is not what was intended.
+
+## Five properties of an agent-ready API
+
+| Property | What the contract should make explicit | Why an agent needs it |
+|---|---|---|
+| Side effects | Whether a call reads, reserves, creates, changes, or cancels | A tool name should not be the only warning before a state change |
+| Idempotency | The caller-supplied key and the outcome of a repeated call | Agents retry; duplicates are a system-design failure, not an agent personality flaw |
+| Bounded retrieval | Page limits, maximum result sets, freshness, and query cost | Open-ended search becomes a loop, a cost problem, and sometimes a data-exposure problem |
+| Machine-readable failures | Stable error categories and a safe next action | “Something went wrong” invites improvisation; a typed failure permits a bounded recovery path |
+| Dry-run and compensation | What can be validated without mutation, and how an approved mutation can be reversed | Safe autonomy needs a way to test intent and undo a mistake |
+
+None of these ideas are new. They are normal integration discipline. The change is that agentic workflows remove the human interpreter who used to fill the gaps between an API’s documentation and its real behaviour.
+
+## Start with side effects
+
+Most API references organise actions by resource: create order, update address, get status. That is useful to a developer. It is insufficient for an agent.
+
+An agent-facing tool should describe its effect in the contract itself:
+
+```json
+{
+  "name": "hold_delivery",
+  "effect": "state_change",
+  "approval_required": true,
+  "idempotency_key_required": true,
+  "reversible_until": "2026-09-01T18:00:00Z",
+  "dry_run_supported": true
+}
+```
+
+The goal is not to make the model read more prose. The goal is to give the calling layer enough deterministic information to refuse an unsafe call before the model’s judgement becomes relevant.
+
+## Bounded retrieval is a reliability feature
+
+Search and lookup calls often look harmless. They are where an agent can quietly cause the most trouble.
+
+Unbounded pagination turns a vague investigation into thousands of requests. A stale response can make a well-reasoned plan wrong. An ambiguous query can return data that the task did not authorise the agent to inspect.
+
+The contract should say what a call may return, how current it is, and when it should stop. That might mean a maximum page size, a short-lived signed cursor, a required time range, or a scoped search index. These are limits that let an agent fail safely.
+
+## Errors need to carry the next safe action
+
+The worst API error for an agent is a generic 500 with an English sentence. It offers no explanation of whether the caller should retry, ask for human approval, change the request, or stop.
+
+Use typed failures that encode the allowed recovery path:
+
+```json
+{
+  "code": "APPROVAL_REQUIRED",
+  "retryable": false,
+  "safe_next_actions": ["request_approval", "create_draft"],
+  "correlation_id": "..."
+}
+```
+
+A retryable timeout and an authorisation failure are not variants of the same problem. Treating them that way trains the workflow to take action where it should escalate.
+
+## Make recovery part of the interface
+
+Agent discussions often stop at “human in the loop.” That phrase is too imprecise to run a system.
+
+The better questions are: Which action needs approval? What evidence does the approver see? How long does the approval remain valid? What happens if the agent’s owner is unavailable? Which completed actions can be compensated, and which need a new state-changing action?
+
+That is why dry runs, idempotency, and compensating actions belong in the API design. They turn an agent from a caller with broad access into a participant in an accountable workflow.
+
+## The practical test
+
+Before exposing an endpoint as an agent tool, ask five questions:
+
+1. Can a caller determine whether it changes state without inferring from the name?
+2. Can a repeated request create a second outcome?
+3. Can a search expand beyond the task’s data and cost boundary?
+4. Does every failure state name a safe next action?
+5. Can the intended action be simulated, approved, traced, and, where possible, recovered?
+
+If the answer to any of those is no, the work is not “add an MCP server.” It is API design.
+
+The systems that will benefit most from agents are not the ones that give them the broadest tool set. They are the ones whose interfaces make safe behaviour the easiest behaviour.
