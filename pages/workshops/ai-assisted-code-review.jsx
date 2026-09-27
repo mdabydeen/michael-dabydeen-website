@@ -68,7 +68,7 @@ export default function AiAssistedCodeReviewWorkshop() {
             </p>
             <p className="mt-6">
               <a
-                href="mailto:mdabydeen@gmail.com?subject=AI-assisted%20code%20review%20workshop%20interest"
+                href="mailto:mdabydeen@gmail.com?subject=AI-assisted%20code%20review%20workshop%20interest&body=Team%20or%20role%3A%0AReview%20problem%3A%0APreferred%20timing%3A%0AAnything%20else%3A%0A"
                 className="inline-block rounded-md bg-zinc-800 px-4 py-3 font-semibold text-white hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-700"
               >
                 Enquire about the workshop
