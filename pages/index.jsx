@@ -31,7 +31,7 @@ const Home = ({ articles }) => {
       <Container className="mt-9">
         <div className="max-w-4xl">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-          I lead software teams and teach systems design. 
+          I lead software teams and teach systems design.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             I&apos;m Mike Dabydeen, based in Toronto. I work on enterprise logistics
