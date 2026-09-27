@@ -1,0 +1,85 @@
+---
+title: 'What Passing Tests Leave Unresolved'
+description: 'A small review exercise for separating fixture coverage from the assumptions a change adds to an integration.'
+date: 2026-09-27
+location:
+  - city: toronto-on
+tags:
+  - tag: software-review
+  - tag: apis
+  - tag: ai-assisted-development
+---
+
+A passing test tells you what the fixture covered. It does not prove that a change handled every case the contract allows.
+
+That distinction is easy to lose when a change looks small. A mapper adds a default. The existing fixtures pass. The pull request is tidy. Nothing in the test output says that the default changed the meaning of an incomplete request.
+
+Consider this illustrative integration:
+
+- A partner can send `shipmentId` and may omit `countryCode`.
+- The downstream shipping request requires an explicit supported country.
+- The proposed mapper supplies `CA` when `countryCode` is absent.
+
+```javascript
+function proposedMap(payload) {
+  return {
+    shipmentId: payload.shipmentId,
+    countryCode: payload.countryCode || "CA",
+  };
+}
+```
+
+The original fixtures might contain one request with `CA` and another with `US`. Both pass. That result is useful. It establishes that the mapper preserves those values when they are supplied.
+
+It does not establish what an omitted country means. It does not establish whether an empty value is valid. It does not establish what the integration should do when the destination requires a fact the partner did not provide.
+
+## The hidden decision
+
+The `|| "CA"` expression looks like defensive programming. In this contract, it is a policy decision. It turns an incomplete request into a request for Canada.
+
+That decision might be correct in a particular business workflow. The example does not provide the evidence to say so. The partner contract allows omission, but it does not say that omission means Canada. The downstream requirement asks for an explicit supported value.
+
+This is the kind of gap that a review should expose before an integration produces an external effect. The concern is not that a person or a model wrote the function. The concern is that the code quietly supplied a meaning that the contract did not supply.
+
+## What the review should ask
+
+Before approving the change, I would ask:
+
+1. What do the existing fixtures actually establish?
+2. Which assumption changes the meaning of the request?
+3. What should happen when the required fact is missing?
+4. Who owns the choice between rejection, correction, and review?
+5. What evidence would change the approval decision?
+
+The answer is not always “reject the request.” A team might route the payload to a correction queue, pause it for review, or define another explicit policy. The important part is that the handling path is chosen by the owner of that decision rather than hidden in a mapper default.
+
+## A bounded alternative
+
+For this exercise, the safer alternative is to require an explicit supported country before constructing the downstream request:
+
+```javascript
+function explicitMap(payload) {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    throw new Error("A request object is required");
+  }
+  if (typeof payload.shipmentId !== "string" || !payload.shipmentId.trim()) {
+    throw new Error("A shipment identifier is required");
+  }
+  if (!["CA", "US"].includes(payload.countryCode)) {
+    throw new Error("An explicit supported country is required");
+  }
+  return { shipmentId: payload.shipmentId, countryCode: payload.countryCode };
+}
+```
+
+This is not a production integration library. It is a bounded alternative for the exercise. In a real workflow, the error might become a validation response, a correction task, or a review queue. The surrounding team must decide and test that behaviour.
+
+## Evidence has a boundary
+
+The runnable example checks the supplied `CA` and `US` fixtures, exposes the invented default for a missing country, and checks the bounded alternative against incomplete and unsupported inputs. Those checks support the behaviour they cover.
+
+They do not establish authentication, retries, concurrency, idempotency, logging, downstream effects, or recovery after an external request has already happened. Passing the exercise does not certify a production integration.
+
+That boundary is part of the review result. A useful review does not only say whether the code passed. It says what the evidence supports, what it leaves unresolved, and who needs to decide next.
+
+[Download the free AI-assisted code review kit](https://michaeldabydeen.com/resources/review-kit.zip) to run the exercise, compare the worked answer, and use the worksheet with a team. The kit is complete without a subscription. A proposed private workshop is described separately for teams that want facilitated discussion.
