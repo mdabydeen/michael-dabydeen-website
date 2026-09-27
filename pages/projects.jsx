@@ -1,49 +1,23 @@
-import Image from 'next/image'
 import Head from 'next/head'
 
 import { Card } from '../components/Card'
 import { SimpleLayout } from '../components/SimpleLayout'
-import logoAnimaginary from '../images/logos/animaginary.svg'
-import logoCosmos from '../images/logos/cosmos.svg'
-import logoHelioStream from '../images/logos/helio-stream.svg'
-import logoOpenShuttle from '../images/logos/open-shuttle.svg'
-// import logoPlanetaria from '../images/logos/planetaria.svg'
 
 const projects = [
   {
-    name: 'Planetaria',
-    description:
-      'Creating technology to empower civilians to explore space on their own terms.',
-    link: { href: 'http://planetaria.tech', label: 'planetaria.tech' },
-    // logo: logoPlanetaria,
+    name: 'Stopline',
+    description: 'An experimental decision gate for browser agents. A model classifies each proposed action and a policy in code decides whether it runs. The repository documents the mechanism and its limits.',
+    link: { href: 'https://github.com/mdabydeen/stopline', label: 'Inspect Stopline on GitHub' },
   },
   {
-    name: 'Animaginary',
-    description:
-      'High performance web animation library, hand-written in optimized WASM.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoAnimaginary,
+    name: 'Metron',
+    description: 'A small terminal coding agent for local AI development, with bounded tools and explicit approval for patches. Read the repository documentation before using it on your own code.',
+    link: { href: 'https://github.com/mdabydeen/metron', label: 'Inspect Metron on GitHub' },
   },
   {
-    name: 'HelioStream',
-    description:
-      'Real-time video streaming library, optimized for interstellar transmission.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoHelioStream,
-  },
-  {
-    name: 'cosmOS',
-    description:
-      'The operating system that powers our Planetaria space shuttles.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoCosmos,
-  },
-  {
-    name: 'OpenShuttle',
-    description:
-      'The schematics for the first rocket I designed that successfully made it to orbit.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoOpenShuttle,
+    name: 'Code review kit',
+    description: 'An illustrative shipment-mapping exercise with runnable JavaScript, a worksheet, and a worked answer. It examines an unsupported default that the original fixtures miss. Free to use without signup.',
+    link: { href: '/resources/review-kit.zip', label: 'Download the complete kit (ZIP)' },
   },
 ]
 
@@ -65,12 +39,12 @@ export default function Projects() {
         <title>Projects - Mike Dabydeen</title>
         <meta
           name="description"
-          content="Things I’ve made trying to put my dent in the universe."
+          content="Code and exercises you can inspect."
         />
       </Head>
       <SimpleLayout
-        title="Things I’ve made trying to put my dent in the universe."
-        intro="I’ve worked on tons of little projects over the years but these are the ones that I’m most proud of. Many of them are open-source, so if you see something that piques your interest, check out the code and contribute if you have ideas for how it can be improved."
+        title="Code and exercises you can inspect."
+        intro="I use these public projects to explore agent behaviour and engineering review. Each example has a bounded purpose; its documentation explains what it does and what remains unproven."
       >
         <ul
           role="list"
@@ -78,14 +52,6 @@ export default function Projects() {
         >
           {projects.map((project) => (
             <Card as="li" key={project.name}>
-              <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-                <Image
-                  src={project.logo}
-                  alt=""
-                  className="h-8 w-8"
-                  unoptimized
-                />
-              </div>
               <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
                 <Card.Link href={project.link.href}>{project.name}</Card.Link>
               </h2>
