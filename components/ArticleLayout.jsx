@@ -32,12 +32,27 @@ export function ArticleLayout({
   }
 
   const [city]  = meta.location
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://michaeldabydeen.com'
+  const articleUrl = `${siteUrl}/articles/${meta.slug}`
+  const description = meta.description || `Writing by Mike Dabydeen on software systems, delivery, and engineering judgement.`
+  const imageUrl = `${siteUrl}/images/portrait.jpg`
 
   return (
     <>
       <Head>
         <title>{`${meta.title} - Mike Dabydeen`}</title>
-        <meta name="description" content={meta.description} />
+        <meta name="description" content={description} />
+        <link rel="canonical" href={articleUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={articleUrl} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content="Mike Dabydeen" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={imageUrl} />
       </Head>
       <Container className="mt-16 lg:mt-32">
         <div className="xl:relative">
