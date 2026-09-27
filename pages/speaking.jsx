@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { SimpleLayout } from '../components/SimpleLayout'
 
 export default function Speaking() {
@@ -17,6 +18,12 @@ export default function Speaking() {
             <p className="mt-4">Explore a browser-agent design in which a model classifies an action and application code decides whether it may run. Discuss approval, changing state, and what an evidence log can establish.</p>
             <p className="mt-4"><a href="https://github.com/mdabydeen/stopline" className="underline">Inspect the experimental Stopline repository</a>.</p>
           </section>
+          <section>
+            <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Measuring a local-first coding agent</h2>
+            <p className="mt-4">Use a small command-line agent as a case study in boundary design: what the tool can observe, which actions it may propose, and what evidence remains after a run.</p>
+            <p className="mt-4"><a href="https://github.com/mdabydeen/metron/releases/tag/v0.1.0" className="underline">Read the experimental Metron release notes</a>.</p>
+          </section>
+          <p>For a private team session applying the review exercise to a real process, see the <Link href="/workshops/ai-assisted-code-review" className="underline">workshop interest page</Link>.</p>
           <p>To discuss a session, <a href="https://www.linkedin.com/in/mdabydeen/" className="underline">contact me on LinkedIn</a> or <a href="mailto:mdabydeen@gmail.com" className="underline">email me</a>.</p>
         </div>
       </SimpleLayout>
