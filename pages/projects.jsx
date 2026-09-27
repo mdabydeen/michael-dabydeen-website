@@ -8,7 +8,7 @@ const projects = [
     name: 'Stopline',
     description: 'An experimental decision gate for browser agents. A model classifies each proposed action and a policy in code decides whether it runs. The repository documents the mechanism and its limits.',
     link: { href: 'https://github.com/mdabydeen/stopline', label: 'Inspect Stopline on GitHub' },
-    secondaryLink: { href: 'https://github.com/mdabydeen/stopline/releases/tag/v0.1.0', label: 'Read the v0.1.0 release' },
+    secondaryLink: { href: 'https://github.com/mdabydeen/stopline/releases/latest', label: 'Read the latest release' },
   },
   {
     name: 'Metron',
