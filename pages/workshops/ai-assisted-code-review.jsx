@@ -84,6 +84,18 @@ export default function AiAssistedCodeReviewWorkshop() {
           </section>
 
           <section>
+            <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">What happens after an enquiry</h2>
+            <ol className="mt-4 list-decimal space-y-3 pl-5">
+              <li>We exchange a short description of the review problem, participants, and preferred timing.</li>
+              <li>We confirm whether the proposed exercise fits the team&apos;s question and constraints.</li>
+              <li>If it fits, I send written scope, timing, fee, and cancellation terms for review before any booking.</li>
+            </ol>
+            <p className="mt-4 text-sm">
+              An enquiry does not reserve a date or create a payment obligation.
+            </p>
+          </section>
+
+          <section>
             <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Start with an interest enquiry</h2>
             <p className="mt-4">
               Tell me who would attend, where review currently gets difficult, and
