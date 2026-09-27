@@ -42,4 +42,6 @@ It checks the original fixtures, exposes the unsupported default, and checks a b
 
 Passing examples support the cases they cover. A review also needs to examine assumptions introduced by the change and whether the tests cover the decision being made. The AI-assisted framing describes a relevant review setting; this particular defect could be written by a person or a tool. Nothing in the exercise establishes that AI causes the defect more often.
 
-The answer, code, and worksheet are all provided. A team can run the exercise without booking a session or subscribing to a newsletter.
+The answer, code, worksheet, sample team output, and facilitator guide are all provided. A team can run the exercise without booking a session or subscribing to a newsletter.
+
+The [sample team output](TEAM-OUTPUT.md) shows one possible discussion record. The [facilitator guide](FACILITATOR-GUIDE.md) describes a bounded 90-minute format; it is a proposed workshop format, not a report of a delivered session.
