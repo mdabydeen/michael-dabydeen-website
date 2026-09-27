@@ -9,6 +9,7 @@ const projects = [
     description: 'An experimental decision gate for browser agents. A model classifies each proposed action and a policy in code decides whether it runs. The repository documents the mechanism and its limits.',
     link: { href: 'https://github.com/mdabydeen/stopline', label: 'Inspect Stopline on GitHub' },
     secondaryLink: { href: 'https://github.com/mdabydeen/stopline/releases/latest', label: 'Read the latest release' },
+    tertiaryLink: { href: '/workshops/ai-assisted-code-review', label: 'Explore the team workshop' },
   },
   {
     name: 'Metron',
@@ -65,6 +66,13 @@ export default function Projects() {
                 <p className="relative z-10 mt-3 text-sm font-medium text-teal-700 dark:text-teal-400">
                   <a href={project.secondaryLink.href} className="underline">
                     {project.secondaryLink.label}
+                  </a>
+                </p>
+              )}
+              {project.tertiaryLink && (
+                <p className="relative z-10 mt-3 text-sm font-medium text-teal-700 dark:text-teal-400">
+                  <a href={project.tertiaryLink.href} className="underline">
+                    {project.tertiaryLink.label}
                   </a>
                 </p>
               )}
