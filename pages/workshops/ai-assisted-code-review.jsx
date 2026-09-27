@@ -2,14 +2,23 @@ import Head from 'next/head'
 import { SimpleLayout } from '../../components/SimpleLayout'
 
 export default function AiAssistedCodeReviewWorkshop() {
+  const title = 'AI-assisted code review workshop - Mike Dabydeen'
+  const description = 'A proposed private team workshop for reviewing AI-assisted changes, with a bounded exercise, draft checklist, and ownership questions.'
+  const url = 'https://michaeldabydeen.com/workshops/ai-assisted-code-review'
   return (
     <>
       <Head>
-        <title>AI-assisted code review workshop - Mike Dabydeen</title>
-        <meta
-          name="description"
-          content="A proposed private team workshop for reviewing AI-assisted changes, with a bounded exercise, draft checklist, and ownership questions."
-        />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={url} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={url} />
+        <meta property="og:image" content="https://michaeldabydeen.com/images/portrait.jpg" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
       </Head>
       <SimpleLayout
         title="Build shared review expectations for AI-assisted changes."
@@ -30,6 +39,17 @@ export default function AiAssistedCodeReviewWorkshop() {
               <li>A worked exercise, draft review checklist, and ownership questions.</li>
               <li>A 30-minute follow-up to discuss one bounded process experiment.</li>
             </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Who it fits</h2>
+            <p className="mt-4">
+              This is designed for an engineering manager, platform lead, or
+              technical lead who has one review problem the team can examine
+              together and authority to try a small process change afterward.
+              It is not a production implementation, security audit, or substitute
+              for an incident response engagement.
+            </p>
           </section>
 
           <section>
@@ -68,7 +88,7 @@ export default function AiAssistedCodeReviewWorkshop() {
             </p>
             <p className="mt-6">
               <a
-                href="mailto:mdabydeen@gmail.com?subject=AI-assisted%20code%20review%20workshop%20interest&body=Team%20or%20role%3A%0AReview%20problem%3A%0APreferred%20timing%3A%0AAnything%20else%3A%0A"
+                href="mailto:mdabydeen@gmail.com?subject=AI-assisted%20code%20review%20workshop%20interest&body=Team%20or%20role%3A%0AParticipants%20or%20team%20size%3A%0AReview%20problem%3A%0AWhat%20would%20make%20the%20session%20useful%3A%0AWho%20approves%20the%20spend%20(optional)%3A%0APreferred%20timing%3A%0AAnything%20else%3A%0A"
                 className="inline-block rounded-md bg-zinc-800 px-4 py-3 font-semibold text-white hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-700"
               >
                 Enquire about the workshop
