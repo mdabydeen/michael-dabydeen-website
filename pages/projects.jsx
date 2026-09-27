@@ -15,6 +15,8 @@ const projects = [
     name: 'Metron',
     description: 'A small terminal coding agent for local AI development, with bounded tools and explicit approval for patches. Read the repository documentation before using it on your own code.',
     link: { href: 'https://github.com/mdabydeen/metron', label: 'Inspect Metron on GitHub' },
+    secondaryLink: { href: 'https://github.com/mdabydeen/metron/discussions/21', label: 'Share model and setup feedback' },
+    tertiaryLink: { href: 'https://github.com/mdabydeen/metron/releases/latest', label: 'Read the latest release' },
   },
   {
     name: 'Code review kit',
