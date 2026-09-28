@@ -16,7 +16,7 @@ export default function Speaking() {
           <section>
             <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Where an agent&apos;s authority ends</h2>
             <p className="mt-4">Explore a browser-agent design in which a model classifies an action and application code decides whether it may run. Discuss approval, changing state, and what an evidence log can establish.</p>
-            <p className="mt-4"><a href="https://github.com/mdabydeen/stopline" className="underline">Inspect the experimental Stopline repository</a>.</p>
+            <p className="mt-4"><a href="https://michaeldabydeen.com/articles/when-the-revision-changes-the-approval-expires" className="underline">Read the revision-bound approval article</a>, then <a href="https://github.com/mdabydeen/stopline/blob/main/docs/team-evaluation-guide.md" className="underline">use the team evaluation guide</a> to examine one boundary. The <a href="https://github.com/mdabydeen/stopline" className="underline">experimental Stopline repository</a> contains the implementation.</p>
           </section>
           <section>
             <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Measuring a local-first coding agent</h2>
