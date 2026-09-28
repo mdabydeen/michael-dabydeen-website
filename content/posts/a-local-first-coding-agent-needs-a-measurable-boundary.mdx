@@ -1,0 +1,86 @@
+---
+title: 'A Local-First Coding Agent Needs a Measurable Boundary'
+description: 'What a public Metron release makes visible about tool limits, approval, and evaluating local AI coding agents.'
+date: 2026-09-27
+location:
+  - city: toronto-on
+tags:
+  - tag: ai-agents
+  - tag: software-architecture
+  - tag: opensource
+---
+
+A coding agent becomes easier to evaluate when its limits are part of the interface.
+
+That is the design problem I worked on with [Metron](https://github.com/mdabydeen/metron), a small terminal coding agent that runs against a local Ollama model. Metron is now public in v0.1.0, with Darwin and Linux archives, checksums, and SPDX SBOMs.
+
+The release is not evidence of production readiness or adoption. It is a concrete artefact that makes the design available for inspection.
+
+## The boundary is the product
+
+A model can produce a plausible answer after seeing too much context. That makes a demo look capable while hiding how much information the model consumed and which effects it could trigger.
+
+Metron takes the opposite starting point: the model should only see code through narrow, budgeted tools.
+
+The default limits are visible in the README:
+
+- 121 lines per file slice
+- 500 characters per line
+- 60 listed files
+- 10 search matches per request
+- 10 model round-trips per turn
+- no retained tool slices after a turn completes
+
+These are implementation limits, not a claim that the limits are universally correct. Their value is that they can be inspected, changed, and tested.
+
+## A tool surface makes the policy concrete
+
+The model is not asked to remember a paragraph about being careful. It receives a small tool surface:
+
+1. list a bounded set of files;
+2. search for a bounded set of matches;
+3. inspect a bounded slice;
+4. propose a patch;
+5. wait for explicit approval before applying it.
+
+The project directory is another boundary. Paths are resolved against the enclosing Git work tree, and a path that escapes that tree is refused. Symlinks are followed before the check, so a link outside the project does not quietly become an escape route.
+
+That still does not make the agent safe for every environment. It means the relevant controls are visible in the code and documentation instead of being implied by a system prompt.
+
+## Approval is separate from generation
+
+Metron shows the proposed diff and waits for a `y` before applying it. The patch is dry-run through `git apply --check` first. A refusal is returned to the model as text so it can explain the change instead of retrying silently.
+
+One-shot mode makes the boundary explicit in a different way. A command such as:
+
+```bash
+metron -p "which files define Greet?"
+```
+
+can answer a question without an interactive session. If the request would apply a patch, one-shot mode fails closed unless `--yes` is supplied.
+
+That distinction matters. A generated patch and an applied patch are different events. Combining them makes it harder to tell whether a system answered, proposed, or changed something.
+
+## What the release lets another engineer inspect
+
+The [v0.1.0 release](https://github.com/mdabydeen/metron/releases/tag/v0.1.0) includes archives for macOS and Linux on amd64 and arm64, checksums, and SPDX SBOMs. The [README](https://github.com/mdabydeen/metron) explains the required local tools and the `--doctor` command.
+
+The first useful evaluation is small:
+
+1. download the archive for the local platform;
+2. run `metron --version`;
+3. run `metron --doctor` in a test repository;
+4. ask a read-only question;
+5. inspect the proposed patch without approving it.
+
+I added a public [installation-feedback template](https://github.com/mdabydeen/metron/issues/new?template=installation_feedback.md) for that kind of report. It asks for reproducible environment details and excludes credentials, private paths, prompts, and source code.
+
+## The limits are part of the result
+
+Metron currently depends on a local Ollama server, a tool-capable model, ripgrep, Universal Ctags, and Git. A missing binary disables one tool; the agent does not become a general-purpose coding system by guessing around the missing dependency.
+
+The project has no customer study, production deployment, adoption measure, or security certification. The release does not establish any of those things. It establishes a public implementation with a documented boundary and a repeatable way to inspect it.
+
+That is the standard I want to keep using for agentic software: make the effect, scope, revision, evidence, and approval state visible enough that another engineer can disagree with the design for specific reasons.
+
+If you try the release, the useful feedback is where the boundary is unclear or the first-run path breaks.
