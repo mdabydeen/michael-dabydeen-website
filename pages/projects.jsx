@@ -45,6 +45,14 @@ export default function Projects() {
           name="description"
           content="Code and exercises you can inspect."
         />
+        <meta property="og:title" content="Projects - Mike Dabydeen" />
+        <meta
+          property="og:description"
+          content="Public engineering projects, a free review exercise, and bounded paths for inspection and team discussion."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://michaeldabydeen.com/projects" />
+        <meta name="twitter:card" content="summary" />
       </Head>
       <SimpleLayout
         title="Code and exercises you can inspect."
