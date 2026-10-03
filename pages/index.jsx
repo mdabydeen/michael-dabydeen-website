@@ -97,7 +97,11 @@ export async function getStaticProps() {
     await generateRssFeed()
   }
 
-  const postContents = listPostContent(1, 4).map(it => it)
+  // Keep the featured article out of the archive list so the homepage does not
+  // ask the reader to scan the same item twice in adjacent sections.
+  const postContents = listPostContent(1, 5)
+    .filter((article) => article?.slug !== 'systems-thinking-is-still-the-work')
+    .slice(0, 4)
 
   return {
     props: {
