@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from 'next/link'
 import { Container } from "../components/Container";
 import { Article } from '../components/Article'
 import { ReviewKit } from '../components/ReviewKit'
@@ -69,9 +70,9 @@ const Home = ({ articles }) => {
           <div className="flex flex-col gap-16">
             <section className="text-base text-zinc-600 dark:text-zinc-400">
               <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Recent writing</h2>
-              <p className="mt-4"><a href="https://dev.to/_firelinks/a-review-contract-for-an-agent-authored-pull-request-2en6" className="underline">A review contract for an agent-authored pull request</a></p>
-              <p className="mt-3">A design note about scoped access, revision-bound evidence, protected checks, and recovery when an agent proposes a change. Published on DEV, 27 September 2026.</p>
-              <p className="mt-4"><a href="https://dev.to/_firelinks" className="underline">Read more on DEV</a></p>
+              <p className="mt-4"><Link href="/articles/systems-thinking-is-still-the-work" className="underline">Systems Thinking Is Still the Work</Link></p>
+              <p className="mt-3">A first-party note on why AI-assisted work still depends on effects, evidence, boundaries, and recovery. Published 2 October 2026.</p>
+              <p className="mt-4"><Link href="/articles" className="underline">Read all articles</Link></p>
             </section>
             <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">From the archive</h2>
             {articles?.map((article) => (
