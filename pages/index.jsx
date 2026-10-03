@@ -40,6 +40,21 @@ const Home = ({ articles }) => {
             and teach at Sheridan and Conestoga. I write about the decisions
             behind software that people need to operate and trust.
           </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href="/resources/review-kit.zip"
+              download
+              className="inline-flex min-h-11 items-center justify-center rounded-md bg-zinc-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-800 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus-visible:outline-zinc-300"
+            >
+              Download the free review kit
+            </a>
+            <Link
+              href="/workshops/ai-assisted-code-review"
+              className="inline-flex min-h-11 items-center justify-center rounded-md px-3 py-3 text-sm font-medium text-teal-700 underline decoration-teal-700/40 underline-offset-4 transition hover:text-teal-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-700 dark:text-teal-400 dark:decoration-teal-400/40 dark:hover:text-teal-300 dark:focus-visible:outline-teal-400"
+            >
+              For teams: workshop details
+            </Link>
+          </div>
           <div className="mt-6 flex gap-6">
             <SocialLink
               href="https://x.com/_firelinks"
