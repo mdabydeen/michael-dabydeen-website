@@ -1,6 +1,6 @@
 ---
-title: 'How to automate Kubernetes clusters using Terraform on GCP'
-description: 'Automating Kubernetes clusters using Terraform on Google Cloud Platform'
+title: 'Archive: a Terraform outline for a GCP Kubernetes cluster'
+description: 'A 2022 Terraform outline retained for historical reference. Current GKE and Terraform guidance should be used for new infrastructure.'
 date: 2022-12-19
 thumbnail: /assets/erol-ahmed-fty5vsgifiq-unsplash.jpg
 author: 'Mike Dabydeen'
@@ -11,14 +11,14 @@ tags:
   - tag: web-hosting
 ---
 
-To automate the deployment and management of [Kubernetes](https://kubernetes.io/) clusters using [Terraform](https://www.terraform.io/), you can use the [Kubernetes provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) for [Terraform](https://www.terraform.io/).
+This is a 2022 outline for creating a Kubernetes cluster on Google Cloud Platform with [Terraform](https://www.terraform.io/). It records the shape of an early configuration, not a current production template. Provider schemas, GKE defaults, identity controls, and Kubernetes release support change. Use the current provider and GKE documentation when building new infrastructure.
 
-Here's an example of how you can use Terraform to deploy a Kubernetes cluster on [Google Cloud Platform (GCP)](https://cloud.google.com/):
+The original outline followed these steps:
 
 1. Install [Terraform](https://www.terraform.io/) on your machine. (Read More: [How to Download & Install Terraform on Windows, Linux, Mac](https://spacelift.io/blog/how-to-install-terraform))
 2. Set up a GCP account and create a project.
 3. Create a service account with the necessary permissions to create and manage resources in your [GCP](https://cloud.google.com/) project.
-4. Download the JSON key file for the service account and store it in a secure location.
+4. Create credentials with only the permissions the deployment requires and protect them appropriately.
 5. Define the provider and credentials for your GCP project in a [Terraform](https://www.terraform.io/) configuration file.
 
 ```bash
@@ -29,7 +29,7 @@ provider "google" {
 }
 ```
 
-1. Use the `google_container_cluster` resource to create a Kubernetes cluster.
+The following `google_container_cluster` example is preserved as historical code. It contains static credentials and older defaults, so it should not be copied into a current deployment.
 
 ```bash
 resource "google_container_cluster" "my-cluster" {
@@ -54,11 +54,6 @@ resource "google_container_cluster" "my-cluster" {
 }
 ```
 
-1. Run `terraform init` to initialize the directory with the configuration files.
-2. Run `terraform apply` to create the [Kubernetes](https://kubernetes.io/) cluster.
+After reviewing a current configuration and plan, run `terraform init`, inspect `terraform plan`, and apply through the change controls appropriate to the environment.
 
-You can then use the `kubectl` command-line tool to deploy applications to your cluster and manage its resources.
-
-Read More: [Destroy Command – How to Destroy Resources from Terraform](https://spacelift.io/blog/how-to-destroy-terraform-resources)
-
-This is just a basic example of how you can use [Terraform](https://www.terraform.io/) to automate the deployment and management of a [Kubernetes](https://kubernetes.io/) cluster. You can use a variety of resources and configuration options to customize your deployment as needed.
+Once the cluster is available, `kubectl` can manage workloads through the cluster's configured access controls. The important decision is not the command alone. It is how identity, state, network boundaries, upgrades, and recovery are defined for the environment.

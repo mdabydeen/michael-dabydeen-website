@@ -1,6 +1,6 @@
 ---
-title: 'What Passing Tests Leave Unresolved'
-description: 'A small review exercise for separating fixture coverage from the assumptions a change adds to an integration.'
+title: 'What passing tests leave unresolved'
+description: 'A review exercise for separating fixture coverage from the assumptions a change adds to an integration.'
 date: 2026-09-27
 location:
   - city: toronto-on
@@ -10,15 +10,13 @@ tags:
   - tag: ai-assisted-development
 ---
 
-A passing test tells you what the fixture covered. It does not prove that a change handled every case the contract allows.
+A passing test shows what its fixture covered. It does not prove that a change handles every case the contract allows.
 
-That distinction is easy to lose when a change looks small. A mapper adds a default. The existing fixtures pass. The pull request is tidy. Nothing in the test output says that the default changed the meaning of an incomplete request.
+That distinction matters when a small mapper adds a default, the fixtures pass, and the pull request looks complete. The output can be green while the code has assigned meaning to an incomplete request.
 
-Consider this illustrative integration:
+## An illustrative integration
 
-- A partner can send `shipmentId` and may omit `countryCode`.
-- The downstream shipping request requires an explicit supported country.
-- The proposed mapper supplies `CA` when `countryCode` is absent.
+In the free review exercise, a partner can send `shipmentId` and may omit `countryCode`. The downstream shipping request requires an explicit supported country. The proposed mapper supplies `CA` when the field is absent:
 
 ```javascript
 function proposedMap(payload) {
@@ -29,33 +27,17 @@ function proposedMap(payload) {
 }
 ```
 
-The original fixtures might contain one request with `CA` and another with `US`. Both pass. That result is useful. It establishes that the mapper preserves those values when they are supplied.
+Fixtures containing `CA` and `US` both pass. That shows the mapper preserves supplied values. It does not show that an omitted country means Canada, that an empty value is valid, or that the downstream system should receive an invented value.
 
-It does not establish what an omitted country means. It does not establish whether an empty value is valid. It does not establish what the integration should do when the destination requires a fact the partner did not provide.
+## The decision is in the default
 
-## The hidden decision
+`|| "CA"` looks like defensive programming. In this example, it is policy. It converts an incomplete request into a request for Canada.
 
-The `|| "CA"` expression looks like defensive programming. In this contract, it is a policy decision. It turns an incomplete request into a request for Canada.
-
-That decision might be correct in a particular business workflow. The example does not provide the evidence to say so. The partner contract allows omission, but it does not say that omission means Canada. The downstream requirement asks for an explicit supported value.
-
-This is the kind of gap that a review should expose before an integration produces an external effect. The concern is not that a person or a model wrote the function. The concern is that the code quietly supplied a meaning that the contract did not supply.
-
-## What the review should ask
-
-Before approving the change, I would ask:
-
-1. What do the existing fixtures actually establish?
-2. Which assumption changes the meaning of the request?
-3. What should happen when the required fact is missing?
-4. Who owns the choice between rejection, correction, and review?
-5. What evidence would change the approval decision?
-
-The answer is not always “reject the request.” A team might route the payload to a correction queue, pause it for review, or define another explicit policy. The important part is that the handling path is chosen by the owner of that decision rather than hidden in a mapper default.
+That policy could be right in a particular workflow. The exercise does not supply evidence for it. The partner contract allows omission, while the downstream system needs an explicit supported value. A review should make the owner choose between rejection, correction, and review rather than hide the choice in a mapper.
 
 ## A bounded alternative
 
-For this exercise, the safer alternative is to require an explicit supported country before constructing the downstream request:
+The exercise uses an explicit check before constructing the downstream request:
 
 ```javascript
 function explicitMap(payload) {
@@ -72,14 +54,8 @@ function explicitMap(payload) {
 }
 ```
 
-This is not a production integration library. It is a bounded alternative for the exercise. In a real workflow, the error might become a validation response, a correction task, or a review queue. The surrounding team must decide and test that behaviour.
+This is a bounded teaching example, not a production integration library. A real workflow might return a validation response, create a correction task, or use a review queue. The surrounding team must make and test that decision.
 
-## Evidence has a boundary
+The runnable example covers supplied countries, the invented default, incomplete input, and unsupported input. It does not establish authentication, retries, concurrency, idempotency, logging, downstream effects, or recovery after an external request. That boundary belongs in the review result.
 
-The runnable example checks the supplied `CA` and `US` fixtures, exposes the invented default for a missing country, and checks the bounded alternative against incomplete and unsupported inputs. Those checks support the behaviour they cover.
-
-They do not establish authentication, retries, concurrency, idempotency, logging, downstream effects, or recovery after an external request has already happened. Passing the exercise does not certify a production integration.
-
-That boundary is part of the review result. A useful review does not only say whether the code passed. It says what the evidence supports, what it leaves unresolved, and who needs to decide next.
-
-[Download the free AI-assisted code review kit](https://michaeldabydeen.com/resources/review-kit.zip) to run the exercise, compare the worked answer, and use the worksheet with a team. The kit is complete without a subscription. A proposed private workshop is described separately for teams that want facilitated discussion.
+[Download the free AI-assisted code review kit](https://michaeldabydeen.com/resources/review-kit.zip) to run the exercise and compare the worked answer. The kit is complete without a subscription.

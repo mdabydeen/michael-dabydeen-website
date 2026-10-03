@@ -1,7 +1,6 @@
 ---
-title: How to solve certificate expired issue in Rancher OS
-description: 'A quick solution to an annoying problem in RancherOS that could
-  cause some downtime. '
+title: 'Archive: investigating an expired certificate in RancherOS'
+description: 'A 2022 incident note for a specific RancherOS deployment. It is not a current certificate-recovery procedure.'
 date: 2022-02-11
 thumbnail: https://unsplash.com/photos/8CTz62aHidw
 location:
@@ -10,74 +9,25 @@ tags:
   - tag: linux
 ---
 
-## Problem
+This is a record of a 2022 RancherOS incident. The Rancher interface became inaccessible, and the logs reported a certificate that had expired. RancherOS, Rancher, Kubernetes, and certificate recovery procedures have changed since this was written. Do not use the commands below as a current runbook.
 
-The rancher web application UI became inaccessible. Investigation into the logs shows that the certificate has expired
+## The evidence from the incident
+
+The relevant log entries included `x509: certificate has expired or is not yet valid` and a current time later than the certificate's expiry time. That established a certificate-time problem in the affected deployment. It did not identify every possible cause of a TLS failure.
 
 ```plaintext
-time="2021-12-29T08:27:32.616638402Z" level=info msg="Waiting for master node startup: resource name may not be empty" 2021-12-29 08:27:32.985756 I | http: TLS handshake error from 127.0.0.1:35568: remote error: tls: bad certificate time="2021-12-29T08:27:32.987398748Z" level=error msg="server https://127.0.0.1:6443/cacerts is not trusted: Get https://127.0.0.1:6443/cacerts: x509: certificate has expired or is not yet valid" 2021-12-29 08:27:32.987447 I | http: TLS handshake error from 127.0.0.1:35570: remote error: tls: bad certificate time="2021-12-29T08:27:33.620623487Z" level=info msg="Waiting for master node startup: resource name may not be empty" 2021/12/29 08:27:34 [INFO] Waiting for server to become available: Get "https://127.0.0.1:6443/version?timeout=15m0s": x509: certificate has expired or is not yet valid: current time 2021-12-29T08:27:34Z is after 2021-12-28T06:35:39
+x509: certificate has expired or is not yet valid
+current time 2021-12-29T08:27:34Z is after 2021-12-28T06:35:39
 ```
 
-## Solution
+## What I checked
 
-1.  SSH into the RancherOS Server on AWS
+I connected to the host, checked its system clock, confirmed the Rancher container was running, and inspected the container before changing anything. Time drift matters because a valid certificate can appear expired when a host clock is wrong.
 
-```bash
-$ ssh -i /path/to/secure/key.pem rancher@<rancher-domain>
-```
+The original intervention removed specific generated certificate material inside that deployment, triggered certificate refresh activity, and restarted the container. Those steps were tied to its Rancher and K3s state. They included an insecure TLS bypass and destructive secret removal, so I have intentionally not republished them as a generic fix.
 
-2.  Check that the date and time on the server is correct. Change to correct date if incorrect
+## A safer current response
 
-```bash
-[rancher@<rancher-domain> ~]$ date
-Fri Feb 11 17:32:28 UTC 2022
-```
+For a current certificate incident, start with the exact versions, certificate issuer, clock state, trust chain, renewal method, and a backup or recovery plan. Follow the supported runbook for the running Rancher and Kubernetes versions. Confirm the scope of any secret or certificate deletion before executing it, and record the replacement and verification steps.
 
-- If the date shown is incorrect, then change the date to the correct date by using the following command
-
-```bash
-[rancher@<rancher-domain> ~]$ sudo date --set="2022-02-11 17:32:28"
-```
-
-3.  Ensure that the rancher docker image is running
-
-```bash
-[rancher@<rancher-domain> ~]$ docker ps
-CONTAINER ID        IMAGE                    COMMAND             CREATED             STATUS              PORTS                                      NAMES
-480a9e0df709        rancher/rancher:latest   "entrypoint.sh"     1 month ago       Up 6 hours          0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   rancher
-```
-
-4.  Login to the rancher container (using container id from #3)
-
-```bash
-[rancher@<rancher-domain> ~]$ docker exec -it rancher /bin/sh
-```
-
-5.  Delete the old certificates by running the following commands
-
-```bash
-sh-4.4# kubectl --insecure-skip-tls-verify -n kube-system delete secrets k3s-serving
-sh-4.4# kubectl --insecure-skip-tls-verify delete secret serving-cert -n cattle-system
-sh-4.4# rm -f /var/lib/rancher/k3s/server/tls/dynamic-cert.json
-```
-
-6.  Refresh the rancher certificates
-
-```bash
-sh-4.4# curl --insecure -sfL https://localhost:8443/v3
-```
-
-7.  Exit the docker container
-
-```bash
-sh-4.4# exit
-exit
-```
-
-8.  Restart the docker container
-
-```bash
-[rancher@<rancher-domain> ~]$ docker restart rancher
-```
-
-Once the container is restarted, then the web interface should become available again.
+The useful lesson from this incident is narrower: the error text, system time, and deployment state should point to the recovery procedure. A copied command sequence should not.

@@ -10,17 +10,17 @@ tags:
   - tag: opensource
 ---
 
-A coding agent becomes easier to evaluate when its limits are part of the interface.
+A coding agent is easier to evaluate when its limits are visible in the interface.
 
-That is the design problem I worked on with [Metron](https://github.com/mdabydeen/metron), a small terminal coding agent that runs against a local Ollama model. Metron is now public in v0.1.0, with Darwin and Linux archives, checksums, and SPDX SBOMs.
+I built [Metron](https://github.com/mdabydeen/metron) around that constraint. It is a small terminal coding agent that runs against a local Ollama model. Version 0.1.0 includes macOS and Linux archives, checksums, and SPDX SBOMs.
 
-The release is not evidence of production readiness or adoption. It is a concrete artefact that makes the design available for inspection.
+That release is a public artefact, not evidence of production readiness, adoption, or security certification. It gives another engineer a specific implementation to inspect.
 
 ## The boundary is the product
 
-A model can produce a plausible answer after seeing too much context. That makes a demo look capable while hiding how much information the model consumed and which effects it could trigger.
+A model can produce a plausible answer after seeing more context than a reviewer intended. A demo may still look capable while concealing what the model read and which effects it could trigger.
 
-Metron takes the opposite starting point: the model should only see code through narrow, budgeted tools.
+Metron exposes code through narrow, budgeted tools.
 
 The default limits are visible in the README:
 
@@ -31,11 +31,11 @@ The default limits are visible in the README:
 - 10 model round-trips per turn
 - no retained tool slices after a turn completes
 
-These are implementation limits, not a claim that the limits are universally correct. Their value is that they can be inspected, changed, and tested.
+These are implementation limits. They are available to inspect, change, and test. I do not present them as universal defaults.
 
 ## A tool surface makes the policy concrete
 
-The model is not asked to remember a paragraph about being careful. It receives a small tool surface:
+The tool surface carries the policy:
 
 1. list a bounded set of files;
 2. search for a bounded set of matches;
@@ -45,13 +45,13 @@ The model is not asked to remember a paragraph about being careful. It receives 
 
 The project directory is another boundary. Paths are resolved against the enclosing Git work tree, and a path that escapes that tree is refused. Symlinks are followed before the check, so a link outside the project does not quietly become an escape route.
 
-That still does not make the agent safe for every environment. It means the relevant controls are visible in the code and documentation instead of being implied by a system prompt.
+Those checks do not make the agent suitable for every environment. They make the controls visible in the code and documentation instead of leaving them in a system prompt.
 
 ## Approval is separate from generation
 
 Metron shows the proposed diff and waits for a `y` before applying it. The patch is dry-run through `git apply --check` first. A refusal is returned to the model as text so it can explain the change instead of retrying silently.
 
-One-shot mode makes the boundary explicit in a different way. A command such as:
+One-shot mode applies the same boundary to a command such as:
 
 ```bash
 metron -p "which files define Greet?"
@@ -59,7 +59,7 @@ metron -p "which files define Greet?"
 
 can answer a question without an interactive session. If the request would apply a patch, one-shot mode fails closed unless `--yes` is supplied.
 
-That distinction matters. A generated patch and an applied patch are different events. Combining them makes it harder to tell whether a system answered, proposed, or changed something.
+A generated patch and an applied patch are different events. Keeping them separate lets a reviewer tell whether the tool answered, proposed, or changed something.
 
 ## What the release lets another engineer inspect
 
@@ -73,17 +73,17 @@ The first useful evaluation is small:
 4. ask a read-only question;
 5. inspect the proposed patch without approving it.
 
-I added a public [installation-feedback template](https://github.com/mdabydeen/metron/issues/new?template=installation_feedback.md) for that kind of report. It asks for reproducible environment details and excludes credentials, private paths, prompts, and source code.
+I added a public [installation-feedback template](https://github.com/mdabydeen/metron/issues/new?template=installation_feedback.md) for that evaluation. It asks for reproducible environment details while excluding credentials, private paths, prompts, and source code.
 
 ## The limits are part of the result
 
-Metron currently depends on a local Ollama server, a tool-capable model, ripgrep, Universal Ctags, and Git. A missing binary disables one tool; the agent does not become a general-purpose coding system by guessing around the missing dependency.
+Metron depends on a local Ollama server, a tool-capable model, ripgrep, Universal Ctags, and Git. When a binary is missing, the related tool is unavailable. The agent does not guess around that dependency.
 
 The project has no customer study, production deployment, adoption measure, or security certification. The release does not establish any of those things. It establishes a public implementation with a documented boundary and a repeatable way to inspect it.
 
-That is the standard I want to keep using for agentic software: make the effect, scope, revision, evidence, and approval state visible enough that another engineer can disagree with the design for specific reasons.
+I want agentic software to make its effect, scope, revision, evidence, and approval state visible enough for another engineer to challenge a design for specific reasons.
 
-If you try the release, the useful feedback is where the boundary is unclear or the first-run path breaks.
+The most useful feedback on this release is where the boundary is unclear or the first-run path breaks.
 
 ## A separate review exercise
 

@@ -1,38 +1,31 @@
 ---
-title: Configure Form Based Authentication for Outlook Web Access in Microsoft
-  Exchange Server
-description: Implementing Form Based Authentication (FBA) in Microsoft Exchange
-  for Outlook Web Access (OWA) is a simple process that provides security
-  benefits such as session expiration and secure logouts. It involves
-  configuring OWA with SSL, enabling FBA on the HTTP Virtual Server in Exchange
-  System Manager, and directing clients to access the secure site using HTTPS.
-  No additional client-side configuration is needed.
+title: 'Archive: form-based authentication in Exchange Server'
+description: 'A 2009 implementation note for Outlook Web Access in a legacy Exchange deployment. It is retained as an archive, not current administration guidance.'
 date: 2009-10-03
-location:
-  - city: georgetown-gy
+location: []
 thumbnail: https://unsplash.com/photos/IU4fyV71PD4
 tags:
   - tag: operating-systems
   - tag: desktop
 ---
 
-Implementing Form Based Authentication (FBA) for Outlook Web Access (OWA) in Microsoft Exchange is a straightforward and easy process. By using FBA, your users can enjoy the convenience of accessing their email services in a similar manner to popular web-based email providers like GMail, Yahoo Mail, and Hotmail.
+This 2009 note records how I enabled Forms-Based Authentication (FBA) for Outlook Web Access in a legacy Microsoft Exchange deployment. It is not current Exchange administration guidance. Do not apply these steps to a current environment without checking the supported documentation for the exact product and version.
 
-## Advantages of Form Based Authentication (FBA)
+## What the configuration changed
 
-There are several security benefits to implementing FBA:
+In that deployment, FBA changed the web sign-in behaviour in three practical ways:
 
-1. **Session Expiration**: If a session remains inactive for a certain period, it will expire. Users must re-authenticate to regain access.
-2. **No Password Remembering**: Users are unable to utilize the "Remember my password" feature in Internet Explorer.
-3. **Secure Log Out**: When logging out, users are completely logged out, requiring re-authentication to access the system again.
+1. An inactive session expired and required another sign-in.
+2. Internet Explorer could not use its "Remember my password" option for the FBA sign-in.
+3. Signing out ended the web session.
 
-In the past, with Exchange 2000, users had to close the browser window to complete the logout session.
+Earlier Exchange behaviour sometimes required users to close the browser to end a session. That was the operational problem this setup addressed.
 
-## Steps to Implement FBA
+## Historical configuration steps
 
-**Configure OWA with SSL**: Follow the instructions in this post to set up SSL for OWA. This step won't be discussed further here.
+First configure OWA to use SSL. This post does not reproduce the certificate setup.
 
-Once you have successfully configured SSL, you need to enable Forms-Based Authentication on the HTTP Virtual Server in Microsoft Exchange System Manager. Here's how:
+After SSL was in place, I enabled FBA on the HTTP Virtual Server in Exchange System Manager:
 
 1. Open Exchange System Manager.
 2. Locate and expand your server object.
@@ -42,6 +35,6 @@ Once you have successfully configured SSL, you need to enable Forms-Based Authen
 6. Click OK and dismiss any warning messages by clicking OK again.
 7. Restart the IIS services either from the Services snap-in or the IIS Admin snap-in.
 
-## Client-side Configuration
+## Client access
 
-No specific client-side configuration is required. Simply direct your clients' web browsers to the same URL they used before, but replace "HTTP" with "HTTPS." A security warning may appear, notifying them that they are entering a secure site. If you have correctly configured your SSL digital certificate as described in this post, everything should function properly.
+The client used the same URL over HTTPS. Any certificate warning needed to be investigated rather than accepted. The exact authentication and client requirements depend on the Exchange version and current security policy.

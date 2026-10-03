@@ -1,7 +1,6 @@
 ---
-title: Allow Cross-origin resource sharing (CORS) in your public folder on Netlify
-description: 'Solving an issue that I encountered while trying to serve a large
-  JSON file using Netlify. '
+title: 'Archive: adding a CORS header for a Netlify static file'
+description: 'A 2022 record of adding a CORS response header for one static JSON path on Netlify. Verify the current Netlify and browser guidance before applying it.'
 date: 2022-01-14
 thumbnail: /assets/domenico-loia-ehtcc9syxsw-unsplash.jpg
 location:
@@ -11,39 +10,37 @@ tags:
   - tag: web-hosting
 ---
 
-Recently I encountered an issue where I had to serve a large static JSON (.json) file hosted on [Netlify](https://netlify.com). I needed this file hosted and accessible from a remote site.
+This is a 2022 record of a CORS configuration I used for a static JSON file on [Netlify](https://netlify.com). Netlify configuration and browser behaviour change. Treat the examples as historical context and confirm the current documentation before applying them.
 
 ## The problem
 
-Accessing the file from the browser worked well but an external site would result in this CORS error:
+The file opened in a browser, but a request from another origin produced this error:
 
 Access to fetch at (redirected from ) from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 
-It is uncommon for most to encounter this issue since I could not find any resource online on how to resolve it. I've documented my experience in resolving this issue below:
+The issue was a missing `Access-Control-Allow-Origin` response header for the path being requested.
 
-## Security Consideration (disclaimer)
+## Scope the permission first
 
-It should be noted that disabling Cross Origin Resource Sharing (CORS) is risky and can open your website / app to potential attack. Please ensure that you understand and assess the risk of disabling CORS before applying this solution.
+`Access-Control-Allow-Origin: *` permits any origin to read a response that browsers can access. Apply it only to data intended for public cross-origin use. It does not make a private resource safe.
 
-## Solution #1 - Header file
+## A `_headers` file
 
-The Netlify documentation suggest try adding a header directive. You can read more on [how headers and proxying work on Netlify](https://docs.netlify.com/routing/headers/).
-
-Adding a file named `_headers` (with no extensions) to your `public` directory or in the same directory as your `index.html` file (assuming you're using React.js like me) with the following content:
+One option was a `_headers` file in the published directory. The shape of the rule was:
 
 ```plaintext
 /path/to/directory/*  Access-Control-Allow-Origin: *
 ```
 
-My JSON file was stored in the following path: `/transparent/code/id.json`, so using the example above I would disable CORS for that path like:
+My JSON file was under `/transparent/code/id.json`, so the path-specific rule was:
 
 ```plaintext
 /transparent/code/*   Access-Control-Allow-Origin: *
 ```
 
-## Solution #2 - Netlify Configuration File
+## A `netlify.toml` rule
 
-While solution worked, it wasn't the most elegant to me and in my testing didn't seem to work consistently. So I continued to look for a much better solution. The alternative solution that I found would be to add the headers configuration into the Netlify configuration by adding a `netlify.toml` to the root of my project directory. In this file I would add the following code to allow for the configuration update:
+I also recorded the rule in `netlify.toml` at the project root:
 
 ```plaintext
 ...
@@ -56,7 +53,7 @@ While solution worked, it wasn't the most elegant to me and in my testing didn't
 ...
 ```
 
-when applied to my specific case using the path `/transparent/code/id.json` would look like:
+For the JSON path in this example, it became:
 
 ```plaintext
 ...
@@ -69,14 +66,10 @@ when applied to my specific case using the path `/transparent/code/id.json` woul
 ...
 ```
 
-The configurations in the `netlify.toml` are applied at build time and overrides the default configuration of your setup.
+Confirm current precedence and deployment behaviour in [Netlify's headers documentation](https://docs.netlify.com/routing/headers/) before relying on this approach.
 
-## Cross Origin Resource Sharing (CORS)
+## What the header changed
 
-Understanding [Cross Origin Resource Sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) should be on the list of every developer.
+A browser's same-origin policy constrains cross-origin requests. A server can opt into a permitted cross-origin response by returning CORS headers. The browser then evaluates those headers against the requesting origin and request type.
 
-At a very high level, and overly simplified explanation, is that browsers and clients (such as `fetch`) follows a same-origin policy which means that they are only allowed to access and retrieve content from the same site or domain that the request is initiated.
-
-However, in some cases, resources need to be shared with other sites which can be enabled by allowing for Cross Origin Resource Sharing (CORS). This is achieved by the server sending an access control header in the pre-flight request when attempting to access that resource.
-
-You can read more about [CORS in the MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) if you're interested in learning more.
+For current explanations and implementation details, use [MDN's CORS guide](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
