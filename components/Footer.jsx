@@ -14,6 +14,19 @@ function NavLink({ href, children }) {
   )
 }
 
+function ExternalNavLink({ href, children }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="transition hover:text-teal-500 dark:hover:text-teal-400"
+    >
+      {children}
+    </a>
+  )
+}
+
 export function Footer() {
   return (
     <footer className="mt-32">
@@ -28,6 +41,9 @@ export function Footer() {
                 <NavLink href="/speaking">Speaking</NavLink>
                 <NavLink href="/contact">Contact</NavLink>
                 <NavLink href="/uses">Uses</NavLink>
+                <ExternalNavLink href="https://mikedabydeen.substack.com/">
+                  Newsletter
+                </ExternalNavLink>
               </div>
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
                 &copy; {new Date().getFullYear()} Mike Dabydeen. All rights
