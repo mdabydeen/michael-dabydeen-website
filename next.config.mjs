@@ -10,6 +10,15 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/projects',
+        destination: '/work',
+        permanent: true,
+      },
+    ]
+  },
   poweredByHeader: false,
   webpack(config, { nextRuntime }) {
       if (typeof nextRuntime === "undefined") {
