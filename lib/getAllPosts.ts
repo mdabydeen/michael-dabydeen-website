@@ -7,6 +7,7 @@ const postsDirectory = path.join(process.cwd(), "content/posts");
 
 export type PostContent = {
   readonly date: string;
+  readonly draft?: boolean;
   readonly title: string;
   readonly slug: string;
   readonly tags?: string[];
@@ -41,6 +42,7 @@ export function fetchPostContent(): PostContent[] {
 
       const matterData = matterResult.data as {
         date: string;
+        draft?: boolean;
         title: string;
         tags: string[];
         slug: string;
@@ -66,13 +68,15 @@ export function fetchPostContent(): PostContent[] {
       return matterData;
     });
   // Sort posts by date
-  postCache = allPostsData.sort((a, b) => {
+  postCache = allPostsData
+    .filter((post) => post.draft !== true)
+    .sort((a, b) => {
     if (a.date < b.date) {
       return 1;
     } else {
       return -1;
     }
-  });
+    });
   return postCache;
 }
 
