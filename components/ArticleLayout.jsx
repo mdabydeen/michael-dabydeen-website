@@ -31,7 +31,8 @@ export function ArticleLayout({
     return children
   }
 
-  const [city]  = meta.location
+  const [city] = meta.location || []
+  const location = city ? getLocation(city.city) : null
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://michaeldabydeen.com'
   const articleUrl = `${siteUrl}/articles/${meta.slug}`
   const description = meta.description || `Writing by Mike Dabydeen on software systems, delivery, and engineering judgement.`
@@ -80,7 +81,11 @@ export function ArticleLayout({
             
                     <span className="ml-3 justify-start grow">{formatDate(meta.date)}</span>
                     
-                    <span className='mr-3 text-zinc-400 dark:text-zinc-500'>{getLocation(city.city).name}</span>
+                    {location && (
+                      <span className="mr-3 text-zinc-400 dark:text-zinc-500">
+                        {location.name}
+                      </span>
+                    )}
 
                   </time>
               </header>

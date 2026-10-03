@@ -1,6 +1,6 @@
 ---
-title: 'Systems Thinking Is Still the Work'
-description: 'Generated code shifts attention to effects, evidence, boundaries, and recovery. It does not remove the need to understand the system.'
+title: 'Systems thinking is still the work'
+description: 'Generated code changes the cost of syntax. Engineers still need to reason about effects, evidence, boundaries, and recovery.'
 date: 2026-10-02
 location:
   - city: toronto-on
@@ -10,63 +10,43 @@ tags:
   - tag: software-review
 ---
 
-Generated code makes syntax cheaper. It does not make a system's obligations disappear.
+Generated code makes syntax cheaper. It does not remove a system's obligations.
 
-That is the distinction I keep returning to when I evaluate an AI-assisted change. A useful answer is not only a function that looks plausible. It is a change whose effect, assumptions, evidence, and recovery path can be explained by the people responsible for operating it.
+That is the distinction I use when I review an AI-assisted change. I need to know what the change can cause, what it assumes, what evidence supports it, and how the people operating the system recover when the evidence is incomplete.
 
-The fundamentals still matter: how information moves, what state a decision relies on, where an external effect occurs, and what the system does when the evidence is incomplete. AI can help produce alternatives quickly. It cannot decide which assumptions a team should accept.
+## Start with the effect
 
-## Start with the effect, not the implementation
+Before I ask whether code runs, I ask what it can do. An API call may create a shipment, change a record, or send a message. A browser agent may submit a form. A mapper may turn an omitted field into a value that changes where work goes.
 
-The question before a change is not simply, “Does this code run?” It is, “What can this code cause to happen?”
+Each is a systems decision, even when the implementation is small. A review needs four clear answers:
 
-An API call may create a shipment, update a record, or send a message. A browser agent may submit a form or approve a request. A mapper may turn an absent field into a value that changes where work is sent. Each of those is a systems decision, even when the implementation is only a few lines long.
+1. What external effect can this change create?
+2. Which facts must be true before that effect is allowed?
+3. What evidence supports the proposed action?
+4. What happens when a fact or approval is no longer valid?
 
-Before accepting an AI-assisted change, I find it useful to make four things explicit:
+Those questions fit inside a pull request. They require more than a syntax check.
 
-1. The external effect the change can create.
-2. The facts required to create that effect.
-3. The evidence that supports the proposed action.
-4. What should happen when a required fact or approval is no longer valid.
+## Tests establish a boundary
 
-Those questions are small enough to use in a pull request, but they are not syntax questions. They require an understanding of the surrounding contract.
+The free [AI-assisted code review kit](https://michaeldabydeen.com/resources/review-kit.zip) uses an illustrative shipment mapper. Its original fixtures pass when `countryCode` is `CA` or `US`. A proposed default also passes those fixtures when the field is absent.
 
-## Passing tests are evidence, not a blank cheque
+The result shows that the supplied fixtures still work. It does not show that an omitted country means Canada, or that the downstream system should receive a value the request did not provide.
 
-The free [AI-assisted code review kit](https://michaeldabydeen.com/resources/review-kit.zip) uses an illustrative shipment mapper. Its original fixtures pass when `countryCode` is supplied as `CA` or `US`. A proposed default also passes those fixtures when the field is absent.
+Tests remain useful evidence. Their value depends on reading their boundary accurately. Someone responsible for the workflow still has to decide whether a missing fact should cause rejection, correction, or a review queue.
 
-The test result establishes that the supplied fixtures still work. It does not establish that an omitted country means Canada, or that the downstream system should receive an invented value.
+## Approval needs an object
 
-That is not an argument against tests. It is an argument for reading their boundary accurately. The review decision belongs to the person who can decide whether a missing fact should lead to rejection, correction, or a review queue. The test runner cannot make that policy choice.
+The same issue appears when an agent proposes an action. Approval for one revision is not evidence for a later revision.
 
-## An approval has to name what it approves
+The [revision-bound approval example](https://michaeldabydeen.com/articles/when-the-revision-changes-the-approval-expires) compares an action identifier, a proposed revision, and a captured state identifier. If any one changes, it rejects the approval. The implementation is intentionally narrow. It does not claim to be a complete production control.
 
-The same reasoning applies when an agent proposes an action. An approval recorded against one revision is not automatically evidence for a later revision.
+Its contribution is visible behaviour. The workflow can say why it stopped instead of carrying an old approval into a changed proposal.
 
-In the small [revision-bound approval example](https://michaeldabydeen.com/articles/when-the-revision-changes-the-approval-expires), the check compares an action identifier, a proposed revision, and a captured state identifier. If any of them changes, it rejects the approval. The implementation is deliberately narrow; it does not claim to be a complete production control.
+## Put the boundary in the tool
 
-Its value is that the rule is inspectable. The workflow can explain why it stopped rather than carrying an old approval across a changed proposal.
+I used the same principle in [Metron](https://github.com/mdabydeen/metron), a small local coding agent. It limits file slices to 121 lines, listed files to 60, search matches to 10 per request, and model round-trips to 10 per turn. It proposes a patch, checks it with `git apply --check`, and waits for explicit approval before applying it.
 
-## Boundaries should be visible in the tool itself
+Those limits are a specific design, not universal defaults. They let another engineer examine what the tool can reach, what it proposes, and where it stops.
 
-I take the same view of coding agents. A capable model is not a sufficient safety model. The relevant limits should be visible in the tool surface, the policy, and the record left after a run.
-
-[Metron](https://github.com/mdabydeen/metron) is a small local coding agent I made public to explore that idea. Its default limits include 121 lines in a file slice, 60 listed files, 10 search matches per request, and 10 model round-trips per turn. It proposes a patch, checks it with `git apply --check`, and waits for explicit approval before applying it.
-
-Those limits are not universal defaults and the project does not establish production readiness, adoption, or security certification. They make a particular design available for inspection: another engineer can see what the tool reaches, what it proposes, and where it stops.
-
-## The work is to make a decision explainable
-
-This is why systems thinking remains central as code generation gets easier. The durable skill is not memorising every library call. It is being able to explain what a system is allowed to do, what information it relied on, and what should happen when that information changes.
-
-For someone learning with AI tools, I would start there. Generate the alternative if it helps, then ask:
-
-- What effect does this change create?
-- Which input is an assumption rather than a fact?
-- What does the evidence actually establish?
-- Who can approve this action, and does that approval still apply?
-- How will we observe and recover from the failure case?
-
-The answers will differ by system. The discipline of making them explicit travels well.
-
-If you want a concrete place to practise the distinction, [download the review kit](https://michaeldabydeen.com/resources/review-kit.zip). It includes runnable code, a worksheet, and a worked answer for the illustrative mapper. It is a teaching exercise, not a production integration.
+The durable skill is being able to explain what a system is allowed to do, what information it relied on, and what should happen when that information changes. AI can generate alternatives quickly. It cannot choose which assumptions a team should accept.

@@ -1,6 +1,6 @@
 ---
-title: 'When the Revision Changes, the Approval Expires'
-description: 'A small revision-bound approval check and what its tests do—and do not—establish.'
+title: 'When the revision changes, the approval expires'
+description: 'A revision-bound approval check and the narrow behaviour its tests establish.'
 date: 2026-09-27
 location:
   - city: toronto-on
@@ -10,11 +10,11 @@ tags:
   - tag: software-architecture
 ---
 
-An approval is evidence about a particular proposal. If the proposal changes, the approval needs to be reviewed again.
+An approval is evidence about a particular proposal. When that proposal changes, the approval needs another review.
 
-That sounds obvious until an automated workflow separates the moment a reviewer approves something from the moment a later step executes it. Between those points, the revision can change, the captured state can change, or the action itself can be replaced. A record that says “approved” is incomplete unless it says what was approved.
+An automated workflow may separate approval from execution. In that interval, the revision, captured state, or action itself can change. A record saying "approved" is incomplete unless it names the proposal it approved.
 
-## Bind the approval to the proposal
+## Bind approval to the proposal
 
 I added a small helper to [Stopline](https://github.com/mdabydeen/stopline/releases/tag/v0.1.1) that compares three opaque identifiers:
 
@@ -30,35 +30,20 @@ type RevisionApproval = RevisionProposal & {
 };
 ```
 
-The check accepts an approval only when the action identifier, proposed revision, and captured state identifier all match. If the proposed revision changes from `commit-a` to `commit-b`, the check returns a rejection that names the revision mismatch.
+The helper accepts an approval only when the action identifier, proposed revision, and captured state identifier match. If `commit-a` becomes `commit-b`, it returns a rejection that names the mismatch.
 
-The important behaviour is the refusal. The system does not silently carry an earlier approval across a changed proposal.
+The useful behaviour is the refusal. The helper does not carry an earlier approval into a changed proposal.
 
-## What the tests show
+## What the tests establish
 
-The release includes four tests for this helper:
+The release has four tests for the helper: a matching approval is accepted; a changed revision is rejected; a changed captured state is rejected; and a different action is rejected. The full Stopline test suite passes 11 tests.
 
-1. A matching approval is accepted.
-2. A changed revision is rejected.
-3. A changed captured state is rejected.
-4. An approval for a different action is rejected.
+That is a bounded implementation result. It shows an executable boundary and visible failure cases. It does not prove that a repository's merge controls are safe. The helper does not calculate a commit hash, authenticate an approver, decide who may approve, or block every possible bypass path.
 
-The complete Stopline test suite passes 11 tests. That is a useful implementation result: the example has an executable boundary and the failure cases are visible to a reviewer.
+## Why state is part of the decision
 
-It is not evidence that a repository's merge controls are safe. The helper does not calculate a commit hash, authenticate the approver, decide who may approve, or prevent another path from bypassing it. Those responsibilities belong to the surrounding workflow.
+A revision can remain unchanged while the state it relied on becomes stale. A browser page, an inventory record, or a delivery workflow can move while an action waits for review.
 
-## Why state belongs in the decision
+The example carries `stateHash` with the revision for that reason. The system still has to define the state representation, identity, permissions, expiry, audit record, and rejection path. A small check cannot supply those controls. It can require the workflow to stop when the recorded evidence no longer applies.
 
-Revision identity alone is not always enough. A proposal can be unchanged while the state it was based on is no longer current. A browser page, an inventory record, or a delivery workflow can move on while a queued action waits for approval.
-
-That is why the example carries a `stateHash` alongside the revision. The exact state representation is a system decision. The useful constraint is that the approval should name the evidence it relied on and the execution step should compare that evidence again.
-
-This does not make every action reversible. It does not undo an external effect that already happened. It gives the workflow a precise reason to stop before it applies an approval to a different proposal.
-
-## A small boundary is still a boundary
-
-The implementation is intentionally narrow. It is a building block for a delivery contract, not a complete merge service or production safety control. The surrounding system still needs identity, repository permissions, a trusted state representation, expiry, audit records, and a rule for what happens after rejection.
-
-That limitation is part of the result. A test that rejects a changed revision establishes that the helper rejects that mismatch. It does not establish the properties of the workflow around it.
-
-The [Stopline v0.1.1 release](https://github.com/mdabydeen/stopline/releases/tag/v0.1.1) contains the helper, tests, browser-agent policy, and documented limits. The code is there to inspect. The next design question is not whether an approval field exists. It is whether the system can prove that the approval still applies when the action reaches the point of execution.
+The [Stopline v0.1.1 release](https://github.com/mdabydeen/stopline/releases/tag/v0.1.1) includes the helper, tests, browser-agent policy, and documented limits. The next design question is whether the workflow can prove that an approval still applies when an action reaches execution.
