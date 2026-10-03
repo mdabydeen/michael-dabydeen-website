@@ -25,3 +25,13 @@ pnpm create next-app --example with-tailwindcss with-tailwindcss-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+## Keystatic CMS
+
+The production editor is available at `https://michaeldabydeen.com/keystatic` and stores content in this repository through GitHub OAuth. Before deploying the editor, configure these private environment variables in the hosting provider:
+
+- `KEYSTATIC_GITHUB_CLIENT_ID`
+- `KEYSTATIC_GITHUB_CLIENT_SECRET`
+- `KEYSTATIC_SECRET`
+
+The GitHub OAuth callback is `https://michaeldabydeen.com/api/keystatic/github/oauth/callback`. The public CMS route can render without these values, but editorial API requests will fail until all three are configured.
