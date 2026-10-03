@@ -21,8 +21,8 @@ const work = [
       'A small terminal agent for local AI development. It limits the tool surface, proposes a patch, and waits for explicit approval before applying it.',
     href: 'https://github.com/mdabydeen/metron',
     action: 'Inspect Metron on GitHub',
-    detailHref: 'https://michaeldabydeen.com/articles/a-local-first-coding-agent-needs-a-measurable-boundary',
-    detailAction: 'Read the design note',
+    detailHref: 'https://github.com/mdabydeen/metron/blob/main/docs/evaluation-brief.md',
+    detailAction: 'Read the evaluation brief',
   },
   {
     type: 'Free teaching exercise',
