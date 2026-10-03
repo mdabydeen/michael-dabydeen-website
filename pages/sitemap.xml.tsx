@@ -8,7 +8,7 @@ function escapeXml(value: string) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const staticRoutes = ['', '/about', '/projects', '/speaking', '/articles', '/resources/review-kit', '/workshops/ai-assisted-code-review']
+  const staticRoutes = ['', '/about', '/projects', '/speaking', '/contact', '/articles', '/resources/review-kit', '/workshops/ai-assisted-code-review']
   const articleRoutes = fetchPostContent().map((post) => `/articles/${post.slug}`)
   const urls = [...staticRoutes, ...articleRoutes]
     .map((route) => `<url><loc>${escapeXml(`${siteUrl}${route}`)}</loc></url>`)
