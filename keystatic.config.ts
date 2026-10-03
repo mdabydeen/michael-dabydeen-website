@@ -57,6 +57,11 @@ export default config({
           label: 'Publication date',
           validation: { isRequired: true },
         }),
+        draft: fields.checkbox({
+          label: 'Draft',
+          description: 'Keep this article out of public pages, routes, and RSS until it is ready.',
+          defaultValue: false,
+        }),
         location: fields.array(location, {
           label: 'Location',
           itemLabel: (props) => props.fields.city.value || 'Location',
