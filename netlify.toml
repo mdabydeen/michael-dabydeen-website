@@ -1,3 +1,8 @@
 [build]
   command = "npm run build"
   publish = ".next"
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/keystatic/:splat"
+  status = 302

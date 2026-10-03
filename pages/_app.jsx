@@ -23,6 +23,10 @@ function usePrevious(value) {
 function MyApp({ Component, pageProps, router }) {
   let previousPathname = usePrevious(router.pathname);
 
+  if (router.pathname.startsWith('/keystatic')) {
+    return <Component {...pageProps} />
+  }
+
   return (
     <>
       <div className="fixed inset-0 flex justify-center sm:px-8">
