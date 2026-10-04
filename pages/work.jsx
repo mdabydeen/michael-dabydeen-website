@@ -18,11 +18,11 @@ const work = [
     type: 'Local-first model routing',
     name: 'pi-nimble-router',
     description:
-      'A Pi extension that registers a virtual model and uses a local Ollama decision to route each new turn among local, remote, and stronger remote tiers. The repository documents the routing contract, config boundaries, and fallback behaviour; it makes no benchmark or adoption claim.',
+      'A Pi extension that registers a virtual model and uses a local Ollama decision to route each new turn among local, remote, and stronger remote tiers. The repository documents the routing contract, config boundaries, and fallback behaviour; the package is available through GitHub and npm, with no benchmark or adoption claim.',
     href: 'https://github.com/mdabydeen/pi-nimble-router',
     action: 'Inspect pi-nimble-router on GitHub',
-    detailHref: 'https://github.com/mdabydeen/pi-nimble-router/releases/tag/v0.2.2',
-    detailAction: 'Read the 0.2.2 release notes',
+    detailHref: 'https://github.com/mdabydeen/pi-nimble-router/releases/tag/v0.2.3',
+    detailAction: 'Read the 0.2.3 release notes',
   },
   {
     type: 'Local coding agent',
