@@ -21,8 +21,8 @@ const work = [
       'A Pi extension that registers a virtual model and uses a local Ollama decision to route each new turn among local, remote, and stronger remote tiers. The repository documents the routing contract, config boundaries, and fallback behaviour; it makes no benchmark or adoption claim.',
     href: 'https://github.com/mdabydeen/pi-nimble-router',
     action: 'Inspect pi-nimble-router on GitHub',
-    detailHref: 'https://github.com/mdabydeen/pi-nimble-router/releases/tag/v0.2.0',
-    detailAction: 'Read the 0.2.0 release notes',
+    detailHref: 'https://github.com/mdabydeen/pi-nimble-router/releases/tag/v0.2.1',
+    detailAction: 'Read the 0.2.1 release notes',
   },
   {
     type: 'Local coding agent',
