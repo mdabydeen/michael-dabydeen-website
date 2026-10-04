@@ -1,0 +1,54 @@
+---
+title: 'A Local-First Router Should Make the Fallback Visible'
+description: 'What a small Pi extension makes easier to inspect when a local model chooses among local and authenticated remote tiers.'
+date: 2026-10-03
+location:
+  - city: toronto-on
+tags:
+  - tag: ai-agents
+  - tag: software-architecture
+  - tag: opensource
+---
+
+Routing a model call is a policy decision. The useful question is not only which model answered. It is why that model was selected, what happened when the preferred path was unavailable, and what evidence remains after the turn.
+
+I built [pi-nimble-router](https://github.com/mdabydeen/pi-nimble-router) as a small Pi extension around that boundary. It registers one virtual model, `nimble/auto`, and asks a local Ollama model to choose among three configured tiers:
+
+- `local` for the normal path;
+- `cloud` for work that needs a logged-in remote provider; and
+- `heavy` for the strongest configured remote model.
+
+The extension does not add a third-party routing gateway. If a turn is sent to a remote tier, Pi sends it to the provider configured and authenticated by the user.
+
+## The route is part of the turn's state
+
+A new user turn is the point at which the router asks for a decision. A continuation or retry keeps the model selected for that turn. This matters because changing models in the middle of a continuation can invalidate provider-specific context or thinking state.
+
+Operations outside the agent loop, such as a direct or compaction operation, stay on the local target. The router also has a configured default. If the local decision times out, is empty, or contains no parseable verdict, the default wins.
+
+The fallback is deliberately boring:
+
+1. use the requested tier if its model exists and its provider is available;
+2. downgrade `heavy` to `cloud` when the stronger remote target cannot be used;
+3. downgrade `cloud` to `local` when the remote target cannot be used; and
+4. use the configured local default when the decision itself is unavailable.
+
+That sequence is easier to reason about than a hidden retry loop. A user can inspect the configured targets and see where an unexpected turn can go.
+
+## The routing prompt is untrusted input
+
+The local router sees the user's latest text. That text can contain instructions that look like a routing verdict. A pasted document could include the word `cloud`, for example, without the user intending to send the task to a remote provider.
+
+The extension wraps the task as untrusted data and parses the router's final line for the verdict. This bounds one prompt-injection path. It does not make a local model infallible, so the unavailable and unparseable cases still fall back to the local default.
+
+The same boundary applies to configuration. A project-local `.pi/settings.json` may tune non-exfiltration fields, but it cannot choose the `cloud` or `heavy` target or supply the cloud-routing hint. Those fields come from the trusted user settings. A cloned repository should not be able to point a logged-in agent at a new remote destination merely by shipping a settings file.
+
+## What the release establishes
+
+The [v0.2.0 release](https://github.com/mdabydeen/pi-nimble-router/releases/tag/v0.2.0) contains the extension, the pure routing logic, a runnable self-check, and a package artifact. The repository also includes the [pinned GitHub installation command](https://github.com/mdabydeen/pi-nimble-router) for Pi.
+
+The self-check verifies the routing contract and configuration boundaries. It does not establish cost savings, latency, production suitability, safety certification, adoption, or revenue. Those are separate questions that require measurements in a real workflow.
+
+The next useful evaluation is small: install the pinned release in a test Pi environment, configure only a local target, then add one authenticated remote target and inspect the fallback behaviour under an unavailable provider. Record the route, the target configuration, and the reason for any downgrade. That produces evidence about the workflow without pretending that a passing self-check is a production result.
+
+The point of a small router is not to hide the model choice. It is to make the choice and the fallback visible enough for a person to review.
