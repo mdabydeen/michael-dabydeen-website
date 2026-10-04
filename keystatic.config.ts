@@ -1,5 +1,13 @@
 import { collection, config, fields } from '@keystatic/core'
 
+// Local mode is deliberately opt-in and development-only. Production must use
+// the authenticated GitHub storage path so an editor cannot write to a public
+// deployment without an explicit OAuth configuration.
+// The flag is public because the Keystatic config is also bundled for the
+// editor UI. It is still guarded by NODE_ENV so production cannot opt in.
+const useLocalStorage =
+  process.env.NODE_ENV !== 'production' && process.env.NEXT_PUBLIC_KEYSTATIC_LOCAL === 'true'
+
 const tag = fields.object({
   tag: fields.text({
     label: 'Tag',
@@ -16,11 +24,13 @@ const location = fields.object({
 })
 
 export default config({
-  storage: {
-    kind: 'github',
-    repo: 'mdabydeen/michael-dabydeen-website',
-    branchPrefix: 'content/',
-  },
+  storage: useLocalStorage
+    ? { kind: 'local' }
+    : {
+        kind: 'github',
+        repo: 'mdabydeen/michael-dabydeen-website',
+        branchPrefix: 'content/',
+      },
   ui: {
     brand: {
       name: 'Mike Dabydeen content',
