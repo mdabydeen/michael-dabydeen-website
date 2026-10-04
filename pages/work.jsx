@@ -15,6 +15,16 @@ const work = [
     detailAction: 'Read the team evaluation guide',
   },
   {
+    type: 'Local-first model routing',
+    name: 'pi-nimble-router',
+    description:
+      'A Pi extension that registers a virtual model and routes each new turn between a local Ollama model and a logged-in cloud model. The repository documents the routing contract and fallback behaviour; it makes no benchmark or adoption claim.',
+    href: 'https://github.com/mdabydeen/pi-nimble-router',
+    action: 'Inspect pi-nimble-router on GitHub',
+    detailHref: 'https://github.com/mdabydeen/pi-nimble-router/blob/main/README.md',
+    detailAction: 'Read the routing notes',
+  },
+  {
     type: 'Local coding agent',
     name: 'Metron',
     description:

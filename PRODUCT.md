@@ -36,7 +36,7 @@ Mike writes as a considered practitioner and accessible educator. The experience
 
 ## Evidence on Hand
 
-- Verified public artefacts: Stopline, Metron, the review kit, and the current first-party articles.
+- Verified public artefacts: Stopline, pi-nimble-router, Metron, the review kit, and the current first-party articles.
 - User-supplied biography: current Purolator Digital Lab, UREEQA, Sheridan, and Conestoga roles in Toronto.
 - The content workspace's claim ledger and publication register are the evidence and publication sources of truth.
 - The Astro repository contains unverified customer case studies and retrospective material. Do not publish or migrate them without supporting evidence.
