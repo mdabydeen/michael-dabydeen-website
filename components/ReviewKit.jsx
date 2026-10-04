@@ -10,9 +10,9 @@ export function ReviewKit() {
         the assumption and make your own review decision.
       </p>
       <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">Free, with no signup. This is an illustrative exercise.</p>
-      <a href="/resources/review-kit.zip" download className="mt-5 inline-block rounded-md bg-zinc-800 px-4 py-3 font-semibold text-white hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-700">Download the review kit (ZIP)</a>
+      <a href="/resources/review-kit.zip" download className="mt-5 inline-block rounded-md bg-zinc-800 px-4 py-3 font-semibold text-white hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-700">Download the free review kit</a>
       <p className="mt-4"><Link href="/projects" className="text-sm text-teal-700 underline dark:text-teal-400">Read about the projects</Link></p>
-      <p className="mt-3"><Link href="/workshops/ai-assisted-code-review" className="text-sm text-teal-700 underline dark:text-teal-400">For teams: workshop interest details</Link></p>
+      <p className="mt-3"><Link href="/workshops/ai-assisted-code-review" className="text-sm text-teal-700 underline dark:text-teal-400">For teams: workshop details</Link></p>
     </section>
   )
 }
