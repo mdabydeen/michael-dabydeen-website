@@ -104,6 +104,20 @@ export default function Work() {
 
         <section className="mt-16 grid gap-8 border-y border-zinc-200 py-10 sm:grid-cols-12 dark:border-zinc-800">
           <h2 className="text-2xl font-semibold tracking-[-0.02em] text-zinc-900 sm:col-span-4 dark:text-zinc-100">
+            Have a boundary to examine?
+          </h2>
+          <div className="sm:col-span-7">
+            <p className="max-w-xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
+              If you are evaluating a routing policy, an agent control, or the evidence behind an AI-assisted change, start with the decision and the constraint.
+            </p>
+            <Link className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-teal-700 underline decoration-teal-700/25 underline-offset-4 transition hover:text-teal-900 hover:decoration-teal-900 dark:text-teal-400 dark:hover:text-teal-300" href="/contact#systems-evaluation">
+              Discuss an evaluation<ArrowUpRightIcon className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
+
+        <section className="mt-16 grid gap-8 border-y border-zinc-200 py-10 sm:grid-cols-12 dark:border-zinc-800">
+          <h2 className="text-2xl font-semibold tracking-[-0.02em] text-zinc-900 sm:col-span-4 dark:text-zinc-100">
             Apply the review exercise to a real process.
           </h2>
           <div className="sm:col-span-7">

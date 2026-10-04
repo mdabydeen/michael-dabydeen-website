@@ -5,6 +5,7 @@ import { Container } from '../components/Container'
 
 const email = 'mdabydeen@gmail.com'
 const workshopHref = `mailto:${email}?subject=AI-assisted%20code%20review%20workshop%20interest&body=Team%20or%20role%3A%0AParticipants%20or%20team%20size%3A%0AReview%20problem%3A%0AWhat%20would%20make%20the%20session%20useful%3A%0AWho%20approves%20the%20spend%20(optional)%3A%0APreferred%20timing%3A%0AAnything%20else%3A%0A`
+const systemsHref = `mailto:${email}?subject=AI%20systems%20or%20software%20product%20enquiry&body=What%20are%20you%20building%20or%20reviewing%3A%0AWhat%20decision%20or%20boundary%20needs%20evidence%3A%0AWhat%20have%20you%20tried%20so%20far%3A%0AWhat%20would%20make%20a%20first%20conversation%20useful%3A%0APreferred%20timing%3A%0AAnything%20else%3A%0A`
 const speakingHref = `mailto:${email}?subject=Speaking%20or%20teaching%20enquiry&body=Organisation%20or%20event%3A%0AAudience%3A%0ATopic%20or%20question%3A%0APreferred%20timing%3A%0AAnything%20else%3A%0A`
 const advisoryHref = `mailto:${email}?subject=Engineering%20leadership%20conversation&body=Role%20or%20organisation%3A%0AQuestion%20you%20are%20working%20through%3A%0AWhat%20would%20make%20a%20conversation%20useful%3A%0APreferred%20timing%3A%0AAnything%20else%3A%0A`
 
@@ -54,6 +55,18 @@ export default function Contact() {
               </p>
               <p className="mt-5">
                 <ContactLink href={workshopHref}>Ask about the workshop</ContactLink>
+              </p>
+            </section>
+
+            <section id="systems-evaluation" className="border-t border-zinc-200 pt-6 dark:border-zinc-700/60">
+              <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">
+                Examine a software product or AI systems boundary
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
+                If you are working through routing, fallback, agent controls, or review evidence, share the decision and the constraint. I can start by examining the question; an enquiry does not promise a product engagement or a particular outcome.
+              </p>
+              <p className="mt-5">
+                <ContactLink href={systemsHref}>Discuss an evaluation</ContactLink>
               </p>
             </section>
 
