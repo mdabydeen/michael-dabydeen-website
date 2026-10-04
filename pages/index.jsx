@@ -9,6 +9,7 @@ import {
   InstagramIcon,
   GitHubIcon,
   LinkedInIcon,
+  BlueskyIcon,
 } from '../components/SocialIcons'
 
 import { SocialLink } from '../components/SocialLink'
@@ -75,6 +76,11 @@ const Home = ({ articles }) => {
               href="https://www.linkedin.com/in/mdabydeen/"
               aria-label="Follow on LinkedIn"
               icon={LinkedInIcon}
+            />
+            <SocialLink
+              href="https://bsky.app/profile/mdabydeen.bsky.social"
+              aria-label="Follow on Bluesky"
+              icon={BlueskyIcon}
             />
           </div>
         </div>

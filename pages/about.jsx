@@ -9,6 +9,7 @@ import {
   InstagramIcon,
   GitHubIcon,
   LinkedInIcon,
+  BlueskyIcon,
 } from '../components/SocialIcons'
 import portraitImage from '../images/team-mike.jpg'
 
@@ -97,6 +98,9 @@ export default function About() {
               </SocialLink>
               <SocialLink href="https://www.linkedin.com/in/mdabydeen/" icon={LinkedInIcon} className="mt-4">
                 Follow on LinkedIn
+              </SocialLink>
+              <SocialLink href="https://bsky.app/profile/mdabydeen.bsky.social" icon={BlueskyIcon} className="mt-4">
+                Follow on Bluesky
               </SocialLink>
               <SocialLink
                 href="mailto:mdabydeen@gmail.com"
