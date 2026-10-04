@@ -85,8 +85,8 @@ const Home = ({ articles }) => {
           <div className="flex flex-col gap-16">
             <section className="text-base text-zinc-600 dark:text-zinc-400">
               <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">Recent writing</h2>
-              <p className="mt-4"><Link href="/articles/systems-thinking-is-still-the-work" className="underline">Systems Thinking Is Still the Work</Link></p>
-              <p className="mt-3">A first-party note on why AI-assisted work still depends on effects, evidence, boundaries, and recovery. Published 2 October 2026.</p>
+              <p className="mt-4"><Link href="/articles/a-local-first-router-should-make-the-fallback-visible" className="underline">A Local-First Router Should Make the Fallback Visible</Link></p>
+              <p className="mt-3">A first-party note on making model selection, cancellation, and fallback behaviour visible in a small Pi extension. Published 3 October 2026.</p>
               <p className="mt-4"><Link href="/articles" className="underline">Read all articles</Link></p>
             </section>
             <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">From the archive</h2>
@@ -115,7 +115,7 @@ export async function getStaticProps() {
   // Keep the featured article out of the archive list so the homepage does not
   // ask the reader to scan the same item twice in adjacent sections.
   const postContents = listPostContent(1, 5)
-    .filter((article) => article?.slug !== 'systems-thinking-is-still-the-work')
+    .filter((article) => article?.slug !== 'a-local-first-router-should-make-the-fallback-visible')
     .slice(0, 4)
 
   return {
